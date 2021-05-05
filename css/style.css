@@ -10,11 +10,21 @@ body{
 }
 
 header {
+    display: flex;
+    justify-content: space-between;
     padding: 1px;
-    background-color: black;
-    text-align: center;
+    background-color:#110F0C;
+    height: 190px;
+    
     
 }
+
+header form {
+    align-self: flex-end;
+    color: rgb(214, 136, 18);
+    font-weight: bolder;
+    
+} 
  
 .logo img {  
  height: 200px;
@@ -25,9 +35,7 @@ nav
 {
     display: flex;
     flex-direction: row;
-    background-color: tomato;
-    
-    
+    background-color: #402018;  
 
 }
 
@@ -35,6 +43,7 @@ nav a{
     color: blanchedalmond;
     padding: 14px 20px;
     text-decoration: none;
+    font-weight: bolder;
    
    
 }
@@ -42,27 +51,29 @@ nav a{
 nav a:hover{
     color: white;
     text-decoration: none;
-    background-color: #711806;
+    padding: 20px 20px 20px 20px;
+    transition: padding 0.3s;
+    border-radius: 20px;
+    background-color: brown;
 }
 
-form {
-    display: flex;
-    justify-content: flex-end;
-    color: blanchedalmond;
-    
-}  
+ 
 
 
 
 .row {
     display: flex;
-   /* flex-wrap: wrap; VERIFICAR QUE ESTAMOS HACIENDO*/
+   flex-wrap: wrap;
 } 
 
 aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex: 20%;
     background-color: #110C0B;
     padding: 20px;
+    font-weight: bolder;
     color: #F93109;
     text-align: center;
 }
@@ -79,26 +90,26 @@ section {
 }
 
 
-@media screen and (max-width: 700px){
 
-    nav, .row{
-  flex-direction: column;
-    }
+
+.tablero {
+  display: flex;
+  justify-content: center;
 }
 
 .flex-container
 {   
+
 	background-color: brown;
     border: solid;
+    border-color: #351912;
     padding: 10px;
-   
+    width: 440px;
+    
 
 
 }
-/*
-.flex-container .fila1 .Pieza img {
-    height: 30px;
-}  */ 
+
 
 
 .fila1, .fila3, .fila5, .fila7{
@@ -113,19 +124,21 @@ flex-direction: row-reverse;
 justify-content: center;
 }
 
-.ficha img{
-    height: 40px;
-    width: 40px;
+div.ficha img{
+    height: 52px;
+    width: 52px;
 }
- div.black {
-  height: 40px;
-  width: 40px;
-   background-color: black;
+ .casilla {
+  height: 55px;
+  width: 55px;
+  
 }
 
- div.white {
-  height: 40px;
-  width: 40px;
+div.casilla.negra {
+     background-color: black;
+  }
+
+ div.casilla.blanca {
    background-color: white;
 }
 .button {
@@ -144,12 +157,37 @@ button:hover {
     margin-top: 15px;
         color: orange;
         padding: 20px;
-      
+        transition: padding 0.5s;
 }
 
 footer {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
     color: #FF947E;
+    background-color: #4C1003;
+
 }
 
 
+@media screen and (max-width: 700px){
+
+    nav{
+  flex-direction: column;
+    }
+    .flex-container
+{   	
+    width: 320px;
+}
+    div.ficha img{
+        height: 40px;
+        width: 40px;
+    }
+     .casilla {
+      height: 40px;
+      width: 40px;
+      
+    }
+
+}
