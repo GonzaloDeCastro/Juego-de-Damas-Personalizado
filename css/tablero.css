@@ -1,6 +1,19 @@
+
+div.ficha img{
+    height: 52px;
+    width: 52px;
+}
+.contenedor-tablero{
+    display: flex;
+    justify-content: center;
+}
+
 #tablero {
     display: inline-block;
+    padding: 10px;
+    background-color: brown;
     border:5px solid;
+    border-color: #351912;   
 }
 .fila {
     background-color: #000;

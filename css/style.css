@@ -78,49 +78,7 @@ section {
     color: #FB8E78;
 }
 
-.tablero{
-    display: flex;
-    justify-content: center;
-}
 
-.flex-container{   
-	background-color: brown;
-    border: solid;
-    border-color: #351912;
-    padding: 10px;
-    width: 440px;
-}
-
-
-
-.fila1, .fila3, .fila5, .fila7{
-display: flex;
-justify-content: center;
-}
-
-
-.fila2, .fila4, .fila6, .fila8 {
-display: flex;
-flex-direction: row-reverse;
-justify-content: center;
-}
-
-div.ficha img{
-    height: 52px;
-    width: 52px;
-}
-.casilla {
-    height: 55px;
-    width: 55px;
-}
-
-div.casilla.negra {
-    background-color: black;
-}
-
-div.casilla.blanca {
-    background-color: white;
-}
 .button {
     text-decoration: none;
     margin-top: 15px;
@@ -156,15 +114,11 @@ footer {
     flex-direction: column;
     }
     .flex-container{   	
-    width: 320px;
+        width: 320px;
     }
-    div.ficha img{
-        height: 40px;
-        width: 40px;
-    }
-    .casilla {
-    height: 40px;
-    width: 40px;      
+    .recuadro{
+        height: 35px;
+        width: 35px;
     }
 
 }
