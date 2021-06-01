@@ -5,187 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Damas Online</title>
+    <link rel="stylesheet" href="css/tablero.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
-      <div class="logo"><img src="imgs/logo4.png" alt="logo" ></div>
-       <form>
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username">
-        <label for="pwd">Constraeña:</label>
-        <input type="password" id="pwd" name="pwd">
-      </form>
+    <div class="logo">
+      <img src="imgs/logo4.png" alt="logo" >
+    </div>
+    <form>
+      <label for="username">Usuario:</label>
+      <input type="text" id="username" name="username">
+      <label for="pwd">Constraeña:</label>
+      <input type="password" id="pwd" name="pwd">
+    </form>
   </header>
   <div class="nav-content">
-   <nav>
-       <a href="#">INICIO</a>
-       <a href="#">REGLAS</a>
-       <a href="#">CONTACTO</a>
+    <nav>
+      <a href="#">INICIO</a>
+      <a href="#">REGLAS</a>
+      <a href="#">CONTACTO</a>
       
-   </nav>
+  </nav>
   </div>
     <div class="row">
-        <aside>
-            <div>
-              <img src="imgs/PiezaBlanca.png" alt="PiezaBlanca">
-              <h2>JUGADOR 1</h2>
-                <label for="username"> PUNTOS </label>
-                <input type="text" id="puntos" name="puntos">
-            </div>
-        </aside>
+      <aside>
+        <div>
+          <img src="imgs/PiezaBlanca.png" alt="PiezaBlanca">
+          <h2>JUGADOR 1</h2>
+          <label for="username"> PUNTOS </label>
+          <input type="text" id="puntos" name="puntos">
+        </div>
+      </aside>
     
-        <section>
-            <h2>DIVIERTETE!!</h2>
-            <div class="tablero">
-            <div class="flex-container">
-              
-              <div class="fila1">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>	
-              </div>
-              <div class="fila2">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-              </div>
-              <div class="fila3">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaBlanca.png" alt="PiezaBlanca"></div>
-                </div>
-              </div>
-              <div class="fila4">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>	
-              </div>
-              <div class="fila5">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra"></div>
-              </div>
-              <div class="fila6">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-              </div>
-              <div class="fila7">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-              </div>
-              <div class="fila8">
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-                <div class="casilla blanca"></div>
-                <div class="casilla negra">
-                  <div class="ficha"><img src="imgs/PiezaRoja.png" alt="PiezaRoja"></div>
-                </div>
-              </div> 
+      <section>
+        <h2>DIVIERTETE!!</h2>
+          <div class="tablero">
+            <div class="flex-container">              
+              <div id="tablero"></div>
             </div>
-            </div>
+          </div>
             <button class="button">Nueva Partida</button>
         </section>
-       
+
         <aside>
           <div>
             <img src="imgs/PiezaRoja.png" alt="PiezaRoja">
             <h2>JUGADOR 2</h2>
-              <label for="username"> PUNTOS </label>
-              <input type="text" id="puntos" name="puntos">
+            <label for="username"> PUNTOS </label>
+            <input type="text" id="puntos" name="puntos">
           </div>
       </aside>
-
     </div>
+    
     <footer>
         <h2>Juego de DAMAS ONLINE 2021</h2>
     </footer>
-
 </body>
+
+<script src="js/app.js"></script>
+
 </html>
