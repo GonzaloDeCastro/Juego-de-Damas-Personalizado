@@ -116,7 +116,7 @@ footer {
     .flex-container{   	
         width: 320px;
     }
-    .recuadro{
+    .recuadroBlanco, .recuadroNegro{
         height: 35px;
         width: 35px;
     }
