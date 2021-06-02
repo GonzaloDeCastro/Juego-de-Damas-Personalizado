@@ -16,15 +16,16 @@ div.ficha img{
     border-color: #351912;   
 }
 .fila {
-    background-color: #000;
     display: table;
+    background-color: #fff;    
 }
 .recuadro {
     width:50px;
     height:50px;
     float:left;
 }
+
 .fila:nth-child(odd) .recuadro:nth-child(even),
 .fila:nth-child(even) .recuadro:nth-child(odd) {
-    background-color: white;
+    background-color: #000;
 }

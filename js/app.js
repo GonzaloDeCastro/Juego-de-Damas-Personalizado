@@ -1,14 +1,15 @@
-const tamano = 8;
+
+var tamano = 8;
 var tablero = document.getElementById("tablero");
-for (let i=0; i<tamano; i++) {
+for (var i=0; i<tamano; i++) {
 
     // creamos la fila
-    let fila=document.createElement("div");
+    var fila=document.createElement("div");
     fila.classList.add("fila")
-    for (let j=0; j<tamano; j++) {
+    for (var j=0; j<tamano; j++) {
 
         // creamos cada elemento de la fila
-        let div=document.createElement("div");
+        var div=document.createElement("div");
         div.classList.add("recuadro")
         fila.appendChild(div);
     }
