@@ -1,44 +1,57 @@
-var tablero = document.getElementById("tablero");
-tamano = 8;
-var arregloTablero = [[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],
-                [1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],
-                [1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8]];
-                
+var arregloTablero = [
+    [0,1,0,1,0,1,0,1],
+    [1,0,0,0,0,0,0,0],
+    [0,0,0,1,0,1,0,0],
+    [1,0,0,0,0,0,1,0],
+    [0,0,0,2,0,0,0,2],
+    [2,0,0,0,2,0,0,0],
+    [0,2,0,0,0,0,0,1],
+    [2,0,0,0,2,0,2,0]
+];
 
-for (var i=0; i<tamano; i++) {
-    var fila  =document.createElement("cuadro");
-    fila.classList.add("fila")
-    for (var j=0; j<tamano; j++) {
-        if(i%2 == 0){
-            if(j%2 == 0){
-                var cuadro = document.createElement("cuadro");
-                    cuadro.classList.add("recuadroBlanco");
-                    fila.appendChild(cuadro);
-                console.log('fila par recuadro blanco '+arregloTablero[i][j]);
-                
+//Tablero
+
+var tablero = document.getElementById("tablero"), contador = 0;
+
+for (var i = 0; i < arregloTablero.length; i++) {
+
+        var divColumna = document.createElement('div');
+        divColumna.className = 'columna' + i;
+        tablero.appendChild(divColumna);
+        contador = i % 2;
+        for (var j = 0; j < arregloTablero.length; j++) {
+            var divCasilla = document.createElement('div');
+            if (contador === 0) {
+                divCasilla.className = 'recuadroBlanco';
+                contador++;
+            }else{
+                divCasilla.className = 'recuadroNegro';
+                contador--;
             }
-            else{
-                var cuadro = document.createElement("cuadro");
-                    cuadro.classList.add("recuadroNegro");
-                    fila.appendChild(cuadro);
-                console.log('fila par recuadro negro '+arregloTablero[i][j]);
-            }
+            divCasilla.id = 'columna' + j + 'fila' + i;
+            divColumna.appendChild(divCasilla);
         }
-        else{
-            if(j%2 == 0){
-                var cuadro = document.createElement("cuadro");
-                    cuadro.classList.add("recuadroNegro");
-                    fila.appendChild(cuadro);
-                console.log('fila impar recuadro negro '+arregloTablero[i][j]);
-            }
-            else{
-                var cuadro = document.createElement("cuadro");
-                    cuadro.classList.add("recuadroBlanco");
-                    fila.appendChild(cuadro);
-                console.log('fila impar recuadro blanco '+arregloTablero[i][j]);
-            }
-        }       
-    } 
-    tablero.appendChild(fila);
 }
-console.log(arregloTablero[0][0])
+
+//Fichas
+
+for (var m = 0; m < arregloTablero.length; m++) {  
+
+    for (var n = 0; n < arregloTablero.length; n++) { 
+        //Ficha Blanca corresponde a 1
+        if (arregloTablero[m][n] === 1) {
+            var piezaBlanca = document.createElement('img');
+            piezaBlanca.src = 'imgs/PiezaBlanca.png';
+            piezaBlanca.alt = 'Pieza_Blanca';
+            piezaBlanca.className = 'fichas';
+            document.getElementById('columna' + m +'fila' + n).appendChild(piezaBlanca);
+        //Ficha Roja corresponde a 2
+        }else if (arregloTablero[m][n] === 2){
+            var piezaRoja = document.createElement('img');
+            piezaRoja.src = 'imgs/PiezaRoja.png';
+            piezaRoja.alt = 'Pieza_Roja';
+            piezaRoja.className = 'fichas';
+            document.getElementById('columna' + m +'fila' + n).appendChild(piezaRoja);     
+        }
+    }
+}

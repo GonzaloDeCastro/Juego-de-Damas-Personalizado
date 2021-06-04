@@ -1,33 +1,34 @@
-div.ficha img{
-    height: 52px;
-    width: 52px;
-}
+
 .contenedor-tablero{
     display: flex;
     justify-content: center;
 }
 
 #tablero {
-    display: inline-block;
+    display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
     padding: 10px;
     background-color: brown;
     border:5px solid;
     border-color: #351912;   
 }
-.fila {
-    display: table;
-    background-color: #fff;    
-}
-.recuadroBlanco {
-    width:50px;
-    height:50px;
-    float:left;
-    background-color:blanchedalmond
-}
-.recuadroNegro {
-    width:50px;
-    height:50px;
-    float:left;
-    background-color: black;
+
+
+
+.recuadroBlanco{
+	background-color: blanchedalmond;
+	width: 60px;
+	height: 60px;
 }
 
+.recuadroNegro{
+	background-color: #000;
+	width: 60px;
+	height: 60px;
+}
+
+.fichas{
+    width: 60px;
+	height: 60px;
+}

@@ -108,6 +108,26 @@ footer {
 }
 
 
+@media screen and (max-width: 900px){
+
+    nav{
+    flex-direction: column;
+    }
+    .flex-container{   	
+        width: 430px;
+    }
+    .recuadroBlanco, .recuadroNegro{
+        height: 50px;
+        width: 50px;
+    }
+
+    .fichas{
+        height: 50px;
+        width: 50px; 
+    }
+
+}
+
 @media screen and (max-width: 700px){
 
     nav{
@@ -119,6 +139,11 @@ footer {
     .recuadroBlanco, .recuadroNegro{
         height: 35px;
         width: 35px;
+    }
+
+    .fichas{
+        height: 35px;
+        width: 35px; 
     }
 
 }
