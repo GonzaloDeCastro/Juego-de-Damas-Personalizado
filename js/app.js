@@ -15,9 +15,9 @@ var tablero = document.getElementById("tablero"), contador = 0;
 
 for (var i = 0; i < arregloTablero.length; i++) {
 
-        var divColumna = document.createElement('div');
-        divColumna.className = 'columna' + i;
-        tablero.appendChild(divColumna);
+        var divFila = document.createElement('div');
+        divFila.className = 'fila';
+        tablero.appendChild(divFila);
         contador = i % 2;
         for (var j = 0; j < arregloTablero.length; j++) {
             var divCasilla = document.createElement('div');
@@ -28,8 +28,8 @@ for (var i = 0; i < arregloTablero.length; i++) {
                 divCasilla.className = 'recuadroNegro';
                 contador--;
             }
-            divCasilla.id = 'columna' + j + 'fila' + i;
-            divColumna.appendChild(divCasilla);
+            divCasilla.id = 'fila' + i + 'columna' + j;
+            divFila.appendChild(divCasilla);
         }
 }
 
@@ -44,14 +44,18 @@ for (var m = 0; m < arregloTablero.length; m++) {
             piezaBlanca.src = 'imgs/PiezaBlanca.png';
             piezaBlanca.alt = 'Pieza_Blanca';
             piezaBlanca.className = 'fichas';
-            document.getElementById('columna' + m +'fila' + n).appendChild(piezaBlanca);
+            document.getElementById('fila' + m +'columna' + n).appendChild(piezaBlanca);
         //Ficha Roja corresponde a 2
         }else if (arregloTablero[m][n] === 2){
             var piezaRoja = document.createElement('img');
             piezaRoja.src = 'imgs/PiezaRoja.png';
             piezaRoja.alt = 'Pieza_Roja';
             piezaRoja.className = 'fichas';
-            document.getElementById('columna' + m +'fila' + n).appendChild(piezaRoja);     
+            document.getElementById('fila' + m +'columna' + n).appendChild(piezaRoja);     
         }
     }
 }
+
+
+console.log(arregloTablero[7][0])
+arregloTablero[7][0] = '5';

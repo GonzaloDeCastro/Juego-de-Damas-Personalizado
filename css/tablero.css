@@ -5,16 +5,16 @@
 }
 
 #tablero {
-    display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
+    display: block;
     padding: 10px;
     background-color: brown;
     border:5px solid;
     border-color: #351912;   
 }
 
-
+.fila{
+	display: flex;
+}
 
 .recuadroBlanco{
 	background-color: blanchedalmond;
