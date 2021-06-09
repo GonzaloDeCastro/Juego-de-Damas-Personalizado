@@ -79,7 +79,7 @@ section {
 }
 
 
-.button {
+.claseButton {
     text-decoration: none;
     margin-top: 15px;
     padding: 10px;
@@ -91,7 +91,7 @@ section {
     border: 2px solid #0c0c0e;
 }
 
-button:hover {
+.claseButton:hover {
     margin-top: 15px;
     color: orange;
     padding: 20px;
@@ -109,42 +109,43 @@ footer {
 
 
 @media screen and (max-width: 900px){
+    @media screen and (max-width: 900px){
 
-    nav{
-    flex-direction: column;
+        nav{
+        flex-direction: column;
+        }
+        .flex-container{   	
+            width: 430px;
+        }
+        .recuadroBlanco, .recuadroNegro{
+            height: 50px;
+            width: 50px;
+        }
+    
+        .fichas{
+            height: 50px;
+            width: 50px; 
+        }
+    
     }
-    .flex-container{   	
-        width: 430px;
+    
+    @media screen and (max-width: 700px){
+    
+        nav{
+        flex-direction: column;
+        }
+        .flex-container{   	
+            width: 320px;
+        }
+        .recuadroBlanco, .recuadroNegro{
+            height: 35px;
+            width: 35px;
+        }
+    
+        .fichas{
+            height: 35px;
+            width: 35px; 
+        }
+    
     }
-    .recuadroBlanco, .recuadroNegro{
-        height: 50px;
-        width: 50px;
-    }
-
-    .fichas{
-        height: 50px;
-        width: 50px; 
-    }
-
-}
-
-@media screen and (max-width: 700px){
-
-    nav{
-    flex-direction: column;
-    }
-    .flex-container{   	
-        width: 320px;
-    }
-    .recuadroBlanco, .recuadroNegro{
-        height: 35px;
-        width: 35px;
-    }
-
-    .fichas{
-        height: 35px;
-        width: 35px; 
-    }
-
-}
 
