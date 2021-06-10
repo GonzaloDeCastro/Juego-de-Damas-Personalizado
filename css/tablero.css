@@ -8,7 +8,7 @@
     padding: 10px;
     background-color: brown;
     border:5px solid;
-    border-color: #351912;   
+    border-color: #351214;   
 }
 
 .fila{
@@ -26,8 +26,16 @@
 	width: 60px;
 	height: 60px;
 }
+.recuadroNegro.selected{
+	background-color: blue;
+	
+}
 
 .fichas{
     width: 60px;
 	height: 60px;
+}
+
+#fila4columna7 img{
+    display: none;
 }
