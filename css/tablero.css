@@ -39,3 +39,8 @@
 #fila4columna7 img{
     display: none;
 }
+
+.pintado{
+    border-radius: 50%;
+    background-color: lightblue;
+}

@@ -8,29 +8,50 @@ var arregloTablero = [
     [0,2,0,0,0,0,0,1],
     [2,0,0,0,2,0,2,0]
 ];
-
+var casilla, piezaMovil, piezaMovilSeleccionada; 
 //Tablero
 
 var tablero = document.getElementById("tablero"), contador = 0;
 
 for (var i = 0; i < arregloTablero.length; i++) {
 
-        var divFila = document.createElement('div');
+        var divFila = document.createElement('tr');
         divFila.className = 'fila';
         tablero.appendChild(divFila);
         contador = i % 2;
         for (var j = 0; j < arregloTablero.length; j++) {
-            var divCasilla = document.createElement('div');
+            var casilla = document.createElement('td');
             if (contador === 0) {
-                divCasilla.className = 'recuadroBlanco';
+                casilla.className = 'recuadroBlanco';
                 contador++;
             }else{
-                divCasilla.className = 'recuadroNegro';
+                casilla.className = 'recuadroNegro';
                 contador--;
             }
-            divCasilla.id = 'fila' + i + 'columna' + j;
-            divFila.appendChild(divCasilla);
+            casilla.id = 'fila' + i + 'columna' + j;
+            divFila.appendChild(casilla);
         }
+        var casillas = document.querySelectorAll('td'); 
+    
+        for(x=0; x<casillas.length; x++) {
+        casillas[x].addEventListener('click', seleccionaPieza);
+        }
+}
+
+function seleccionaPieza() {
+    var piezasMoviles = document.querySelectorAll("table, table img"); 
+    if(!piezaMovilSeleccionada && this.firstElementChild) {
+    casilla = this; 
+    piezaMovil = this.innerHTML; 
+
+    this.querySelector('img').classList.add("pintado"); 
+    piezaMovilSeleccionada = true; 
+    }
+    else if(piezaMovilSeleccionada){
+    casilla.innerHTML= ''; 
+    this.innerHTML = piezaMovil; 
+    piezaMovilSeleccionada = false; 
+    }
 }
 
 //Fichas
@@ -59,22 +80,3 @@ for (var m = 0; m < arregloTablero.length; m++) {
 }
 
 
-var fichasBlancas = document.querySelectorAll('img[alt="Pieza_Blanca"]');
-
-for (var h = 0; h<fichasBlancas.length; h++){
-    const fichaSeleccionadaBlanca = fichasBlancas[h];
-    fichaSeleccionadaBlanca.addEventListener('click', () => {
-    fichaSeleccionadaBlanca.style.boxShadow = '#A9F5F2 5px 5px 16px 10px';
-    });
-
-}
-
-var fichasRojas = document.querySelectorAll('img[alt="Pieza_Roja"]');
-
-for (var h = 0; h<fichasRojas.length; h++){
-    const fichaSeleccionadaRoja = fichasRojas[h];
-    fichaSeleccionadaRoja.addEventListener('click', () => {
-    fichaSeleccionadaRoja.style.boxShadow = '#A9F5F2 5px 5px 16px 10px';
-    });
-
-}
