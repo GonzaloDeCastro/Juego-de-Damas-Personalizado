@@ -8,7 +8,7 @@ var arregloTablero = [
     [0,2,0,2,0,2,0,2],
     [2,0,2,0,2,0,2,0]
 ];
-var casilla, piezaMovil, piezaMovilSeleccionada, posicion; 
+var casilla, piezaMovil, piezaMovilSeleccionada, posicion,jugador1 ,jugador2; 
 var turno = 1;
 
 //Tablero
@@ -42,47 +42,61 @@ for (var i = 0; i < arregloTablero.length; i++) {
 }
 
 
-
+//TURNO 1 PIEZAS BLANCAS
 function seleccionaPieza() {
-    if (turno == 2){
+    if (turno == 1){
         if(!piezaMovilSeleccionada && this.firstElementChild) {
             casilla = this; 
             piezaMovil = this.innerHTML; 
             this.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
             piezaMovilSeleccionada = true; 
-            console.log(piezaMovilSeleccionada);
+            var jugador1 = document.getElementById("jugador1");
+            jugador1.style.color = 'lightblue';
+            var jugador2 = document.getElementById("jugador2");
+            jugador2.style.color = '';
         }
     else if(piezaMovilSeleccionada){
             casilla.innerHTML= ''; 
             this.innerHTML = piezaMovil; 
             piezaMovilSeleccionada = false;
-            console.log(piezaMovilSeleccionada);
             posicion = this;
+            
         if (posicion != casilla){
-            turno = 1;
-            }
+            turno = 2;
+            var jugador1 = document.getElementById("jugador1");
+            jugador1.style.color = '';
+            var jugador2 = document.getElementById("jugador2");
+            jugador2.style.color = 'lightblue';
+            }            
         }
     
-}
-    else if (turno == 1){
+}    //TURNO 2 PIEZAS ROJAS
+    else if (turno == 2){
         if(!piezaMovilSeleccionada && this.firstElementChild) {
             casilla = this; 
             piezaMovil = this.innerHTML; 
             this.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado"); 
-            piezaMovilSeleccionada = true; 
-            console.log(piezaMovilSeleccionada);
+            piezaMovilSeleccionada = true;
+            var jugador1 = document.getElementById("jugador1");
+            jugador1.style.color = '';
+            var jugador2 = document.getElementById("jugador2");
+            jugador2.style.color = 'lightblue'; 
         }
     else if(piezaMovilSeleccionada){
             casilla.innerHTML= ''; 
             this.innerHTML = piezaMovil; 
             piezaMovilSeleccionada = false;
-            console.log(piezaMovilSeleccionada);
             posicion = this;
         if (posicion != casilla){
-            turno = 2;
-            }
-    }   
+            turno = 1;
+                var jugador1 = document.getElementById("jugador1");
+            jugador1.style.color = 'lightblue';
+            var jugador2 = document.getElementById("jugador2");
+            jugador2.style.color = '';
+            } 
+        }    
     }
+    
 }
 
 //Fichas
