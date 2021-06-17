@@ -9,6 +9,7 @@ var arregloTablero = [
     [2,0,0,0,2,0,2,0]
 ];
 var casilla, piezaMovil, piezaMovilSeleccionada; 
+var turno = 1;
 //Tablero
 
 var tablero = document.getElementById("tablero"), contador = 0;
@@ -33,29 +34,53 @@ for (var i = 0; i < arregloTablero.length; i++) {
         }
         var casillas = document.querySelectorAll('td'); 
     
+        //Recorre el arreglo para darle boton de seleccion por casilla
         for(x=0; x<casillas.length; x++) {
         casillas[x].addEventListener('click', seleccionaPieza);
         }
 }
 
+/** BUSCAR QUE ES THIS en JS */
+
 function seleccionaPieza() {
-    var piezasMoviles = document.querySelectorAll("table, table img"); 
+    if (turno == 2){
     if(!piezaMovilSeleccionada && this.firstElementChild) {
     casilla = this; 
     piezaMovil = this.innerHTML; 
-
-    this.querySelector('img').classList.add("pintado"); 
+    this.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
     piezaMovilSeleccionada = true; 
+    console.log(piezaMovilSeleccionada);
     }
     else if(piezaMovilSeleccionada){
     casilla.innerHTML= ''; 
     this.innerHTML = piezaMovil; 
-    piezaMovilSeleccionada = false; 
+    piezaMovilSeleccionada = false;
+    console.log(piezaMovilSeleccionada);
+    return turno = 1;
     }
+    
+}
+else if (turno == 1){
+    if(!piezaMovilSeleccionada && this.firstElementChild) {
+    casilla = this; 
+    piezaMovil = this.innerHTML; 
+    this.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado"); 
+    piezaMovilSeleccionada = true; 
+    console.log(piezaMovilSeleccionada);
+    }
+    else if(piezaMovilSeleccionada){
+    casilla.innerHTML= ''; 
+    this.innerHTML = piezaMovil; 
+    piezaMovilSeleccionada = false;
+    console.log(piezaMovilSeleccionada);
+    return turno = 2;
+    }
+    
+}
 }
 
 //Fichas
-
+//Recorre el tablero y agrega las fichas de acuerdo al array arregloTablero
 for (var m = 0; m < arregloTablero.length; m++) {  
 
     for (var n = 0; n < arregloTablero.length; n++) { 
