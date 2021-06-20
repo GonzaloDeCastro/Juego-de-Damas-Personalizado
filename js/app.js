@@ -49,7 +49,7 @@ function seleccionaPieza() {
     if (turno == 1){
         if(!piezaMovilSeleccionada && this.firstElementChild) {
             casilla = this; 
-            piezaMovil = this.innerHTML; 
+            piezaMovil = casilla.innerHTML;
             this.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
             piezaMovilSeleccionada = true;
             
@@ -64,14 +64,13 @@ function seleccionaPieza() {
             jugador1.style.color = 'lightblue';
             var jugador2 = document.getElementById("jugador2");
             jugador2.style.color = '';
-            console.log(casilla.id);
+            
         }
-    else if(piezaMovilSeleccionada){
+    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]') ){
             casilla.innerHTML= ''; 
-            this.innerHTML = piezaMovil; 
+            this.innerHTML = piezaMovil;
             piezaMovilSeleccionada = false;
             posicion = this;
-            console.log(casilla.id);
         if (posicion != casilla){
             turno = 2;
 
@@ -93,7 +92,7 @@ function seleccionaPieza() {
     else if (turno == 2){
         if(!piezaMovilSeleccionada && this.firstElementChild) {
             casilla = this; 
-            piezaMovil = this.innerHTML; 
+            piezaMovil = casilla.innerHTML; 
             this.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado"); 
             piezaMovilSeleccionada = true;
             
@@ -107,9 +106,9 @@ function seleccionaPieza() {
             jugador1.style.color = '';
             var jugador2 = document.getElementById("jugador2");
             jugador2.style.color = 'lightblue'; 
-            console.log(casilla.id);
+            
         }
-    else if(piezaMovilSeleccionada){
+    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Blanca"]')){
             casilla.innerHTML= ''; 
             this.innerHTML = piezaMovil; 
             piezaMovilSeleccionada = false;
