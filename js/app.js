@@ -66,12 +66,12 @@ function seleccionaPieza() {
             jugador2.style.color = '';
             
         }
-    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]') ){
+    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]') || this.querySelector('img[alt="Pieza_Blanca"]') ){
             casilla.innerHTML= ''; 
             this.innerHTML = piezaMovil;
             piezaMovilSeleccionada = false;
             posicion = this;
-        if (posicion != casilla){
+        if (posicion != casilla ){
             turno = 2;
 
             //Despinta ficha de titulo cuando ya no es tu turno
@@ -108,7 +108,7 @@ function seleccionaPieza() {
             jugador2.style.color = 'lightblue'; 
             
         }
-    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Blanca"]')){
+    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]') || this.querySelector('img[alt="Pieza_Blanca"]')){
             casilla.innerHTML= ''; 
             this.innerHTML = piezaMovil; 
             piezaMovilSeleccionada = false;
