@@ -38,7 +38,7 @@ for (var i = 0; i < arregloTablero.length; i++) {
 }
 
 //Recorre el arreglo para darle boton de seleccion por casilla
-var casillas = document.querySelectorAll('td'); 
+var casillas = document.getElementsByClassName('recuadroNegro'); 
 for(x=0; x<casillas.length; x++) {
     casillas[x].addEventListener('click', seleccionaPieza);
     }
@@ -66,7 +66,7 @@ function seleccionaPieza() {
             jugador2.style.color = '';
             
         }
-    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]') || this.querySelector('img[alt="Pieza_Blanca"]') ){
+    else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Blanca"]')  ){
             casilla.innerHTML= ''; 
             this.innerHTML = piezaMovil;
             piezaMovilSeleccionada = false;
@@ -108,7 +108,7 @@ function seleccionaPieza() {
             jugador2.style.color = 'lightblue'; 
             
         }
-    else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]') || this.querySelector('img[alt="Pieza_Blanca"]')){
+    else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Roja"]')){
             casilla.innerHTML= ''; 
             this.innerHTML = piezaMovil; 
             piezaMovilSeleccionada = false;
