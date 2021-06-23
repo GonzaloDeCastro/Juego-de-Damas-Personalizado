@@ -199,7 +199,7 @@ for(x=0; x<casillas.length; x++) {
                 jugador2.style.color = 'lightblue'; 
                 
             }
-            else if(piezaMovilSeleccionada && !this.querySelector('img[alt="ficha_roja"]') && !this.querySelector('img[alt="ficha_blanca"]')){
+            else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Roja"]') && !this.querySelector('img[alt="Pieza_Blanca"]')){
                 posicion = this; 
                 
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id){
