@@ -37,102 +37,6 @@ for (var i = 0; i < arregloTablero.length; i++) {
         }
 }
 
-//Recorre el arreglo para darle boton de seleccion por casilla
-var casillas = document.getElementsByClassName('recuadroNegro'); 
-for(x=0; x<casillas.length; x++) {
-    casillas[x].addEventListener('click', seleccionaPieza);
-    }
-    console.log(casillas.length)
-
-//Turno 1 Piezas Blancas
-function seleccionaPieza() {
-    if (turno == 1){
-        if(!piezaMovilSeleccionada && this.firstElementChild) {
-            casilla = this; 
-            piezaMovil = casilla.innerHTML;
-            this.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
-            piezaMovilSeleccionada = true;
-            
-            //Pinta la ficha del titulo del jugador de turno
-            var fichaJugador1 = document.getElementById("img-jugador1");
-            fichaJugador1.classList.add("pintado");
-            var fichaJugador2 = document.getElementById("img-jugador2");
-            fichaJugador2.classList.remove("pintado");
-            
-            //Pinta el nombre del jugador de turno y despinta al otro
-            var jugador1 = document.getElementById("jugador1");
-            jugador1.style.color = 'lightblue';
-            var jugador2 = document.getElementById("jugador2");
-            jugador2.style.color = '';
-            
-        }
-    else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Blanca"]')  ){
-            casilla.innerHTML= ''; 
-            this.innerHTML = piezaMovil;
-            piezaMovilSeleccionada = false;
-            posicion = this;
-        if (posicion != casilla ){
-            turno = 2;
-
-            //Despinta ficha de titulo cuando ya no es tu turno
-            var fichaJugador1 = document.getElementById("img-jugador1");
-            fichaJugador1.classList.remove("pintado");
-            var fichaJugador2 = document.getElementById("img-jugador2");
-            fichaJugador2.classList.add("pintado");
-
-            //Despinta nombre cuando ya no es tu turno
-            var jugador1 = document.getElementById("jugador1");
-            jugador1.style.color = '';
-            var jugador2 = document.getElementById("jugador2");
-            jugador2.style.color = 'lightblue';
-            }            
-        }
-    
-}    //Turno 2 Piezas Rojas
-    else if (turno == 2){
-        if(!piezaMovilSeleccionada && this.firstElementChild) {
-            casilla = this; 
-            piezaMovil = casilla.innerHTML; 
-            this.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado"); 
-            piezaMovilSeleccionada = true;
-            
-            //Pinta la ficha del titulo del jugador de turno
-            var fichaJugador2 = document.getElementById("img-jugador2");
-            fichaJugador2.classList.add("pintado");
-            var fichaJugador1 = document.getElementById("img-jugador1");
-            fichaJugador1.classList.remove("pintado");
-            //Pinta el nombre del jugador de turno y despinta al otro
-            var jugador1 = document.getElementById("jugador1");
-            jugador1.style.color = '';
-            var jugador2 = document.getElementById("jugador2");
-            jugador2.style.color = 'lightblue'; 
-            
-        }
-    else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Roja"]')){
-            casilla.innerHTML= ''; 
-            this.innerHTML = piezaMovil; 
-            piezaMovilSeleccionada = false;
-            posicion = this;
-            console.log(casilla.id);
-        if (posicion != casilla){
-            turno = 1;
-             //Despinta ficha de titulo cuando ya no es tu turno
-            var fichaJugador2 = document.getElementById("img-jugador2");
-            fichaJugador2.classList.remove("pintado");
-            var fichaJugador1 = document.getElementById("img-jugador1");
-            fichaJugador1.classList.add("pintado");
-
-            //Despinta nombre cuando ya no es tu turno
-            var jugador1 = document.getElementById("jugador1");
-            jugador1.style.color = 'lightblue';
-            var jugador2 = document.getElementById("jugador2");
-            jugador2.style.color = '';
-            } 
-        }    
-    }
-    
-}
-
 //Fichas
 //Recorre el tablero y agrega las fichas de acuerdo al array arregloTablero
 for (var m = 0; m < arregloTablero.length; m++) {  
@@ -158,4 +62,176 @@ for (var m = 0; m < arregloTablero.length; m++) {
     }
 }
 
+
+//Recorre el arreglo para darle boton de seleccion por casilla
+var casillas = document.getElementsByClassName('recuadroNegro'); 
+for(x=0; x<casillas.length; x++) {
+    casillas[x].addEventListener('click', seleccionaPieza);
+    }
+    console.log(casillas.length)
+
+
+    function seleccionaPieza() {
+        if (turno == 1){
+            if(!piezaMovilSeleccionada && this.firstElementChild) {
+                casillero = this; 
+                piezaMovil = this.innerHTML;  
+                this.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
+                 //Movimientos posibles activados
+                ubicacion = this.id;
+                fila = ubicacion.substring(4, 5); 
+                columna = ubicacion.substring(12);
+                
+                if(columna == 7){ 
+                    fila++;  
+                    columna--;
+                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                    ubicacionFinalUno.classList.add('movimiento');
+                } else {
+                    if(columna == 0){
+                        fila++;  
+                        columna++;   
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionFinalUno.classList.add('movimiento');
+                    } else {
+                        fila++;  
+                        columna++;   
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionFinalUno.classList.add('movimiento');
+                        columna = columna - 2;
+                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionFinalDos.classList.add('movimiento');
+                    }
+                }
+
+                movimiento = document.querySelectorAll('.movimiento');
+                piezaMovilSeleccionada = true;
+                //Pinta la ficha del titulo del jugador de turno
+                var fichaJugador1 = document.getElementById("img-jugador1");
+                fichaJugador1.classList.add("pintado");
+                var fichaJugador2 = document.getElementById("img-jugador2");
+                fichaJugador2.classList.remove("pintado");
+                
+                //Pinta el nombre del jugador de turno y despinta al otro
+                var jugador1 = document.getElementById("jugador1");
+                jugador1.style.color = 'lightblue';
+                var jugador2 = document.getElementById("jugador2");
+                jugador2.style.color = '';
+                
+            }
+            else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Blanca"]') && !this.querySelector('img[alt="Pieza_Roja"]')){
+                
+                posicion = this;
+            if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id){
+                casillero.innerHTML = ''; 
+                this.innerHTML = piezaMovil; 
+                piezaMovilSeleccionada = false;
+                turno = 2;
+    
+                //Despinta ficha de titulo cuando ya no es tu turno
+                var fichaJugador1 = document.getElementById("img-jugador1");
+                fichaJugador1.classList.remove("pintado");
+                var fichaJugador2 = document.getElementById("img-jugador2");
+                fichaJugador2.classList.add("pintado");
+    
+                //Despinta nombre cuando ya no es tu turno
+                var jugador1 = document.getElementById("jugador1");
+                jugador1.style.color = '';
+                var jugador2 = document.getElementById("jugador2");
+                jugador2.style.color = 'lightblue';
+
+                 //Se remueve el efecto en las casillas porque ya movio la dama
+                    columna = columna + 2;
+                    if(columna != 8){ 
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    }
+                    columna = columna - 2;
+                    ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
+                }            
+            }
+    
+        }    //Turno 2 Piezas Rojas
+        else if (turno == 2){
+            if(!piezaMovilSeleccionada && this.firstElementChild) {
+                casillero = this; 
+                piezaMovil = this.innerHTML; 
+                this.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado");
+                     //Movimientos posibles activados
+                ubicacion = this.id;
+                fila = ubicacion.substring(4, 5); 
+                columna = ubicacion.substring(12);
+                
+                if(columna == 7){ 
+                    fila--;  
+                    columna--;
+                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                    ubicacionFinalUno.classList.add('movimiento');
+                } else {
+                    if(columna == 0){
+                        fila--;  
+                        columna++;   
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionFinalUno.classList.add('movimiento');
+                    } else {
+                        fila--;  
+                        columna--;   
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionFinalUno.classList.add('movimiento');
+                        columna = columna + 2;
+                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionFinalDos.classList.add('movimiento');
+                    }
+                }
+
+                movimiento = document.querySelectorAll('.movimiento');
+
+                piezaMovilSeleccionada = true;
+                
+                //Pinta la ficha del titulo del jugador de turno
+                var fichaJugador2 = document.getElementById("img-jugador2");
+                fichaJugador2.classList.add("pintado");
+                var fichaJugador1 = document.getElementById("img-jugador1");
+                fichaJugador1.classList.remove("pintado");
+                //Pinta el nombre del jugador de turno y despinta al otro
+                var jugador1 = document.getElementById("jugador1");
+                jugador1.style.color = '';
+                var jugador2 = document.getElementById("jugador2");
+                jugador2.style.color = 'lightblue'; 
+                
+            }
+            else if(piezaMovilSeleccionada && !this.querySelector('img[alt="ficha_roja"]') && !this.querySelector('img[alt="ficha_blanca"]')){
+                posicion = this; 
+                
+                if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id){
+                casillero.innerHTML= ''; 
+                this.innerHTML = piezaMovil; 
+                piezaMovilSeleccionada = false;
+                posicion = this;
+                turno = 1;
+                 //Despinta ficha de titulo cuando ya no es tu turno
+                var fichaJugador2 = document.getElementById("img-jugador2");
+                fichaJugador2.classList.remove("pintado");
+                var fichaJugador1 = document.getElementById("img-jugador1");
+                fichaJugador1.classList.add("pintado");
+    
+                //Despinta nombre cuando ya no es tu turno
+                var jugador1 = document.getElementById("jugador1");
+                jugador1.style.color = 'lightblue';
+                var jugador2 = document.getElementById("jugador2");
+                jugador2.style.color = '';
+
+                    //Se remueve el efecto en las casillas porque ya movio la dama
+                    if(columna != 1){ 
+                        columna = columna - 2;
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+
+                        columna = columna + 2;
+                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    }  
+                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
+                } 
+            } 
+        }
+        
+    }
 
