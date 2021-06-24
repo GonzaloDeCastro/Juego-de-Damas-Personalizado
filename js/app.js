@@ -77,7 +77,7 @@ for(x=0; x<casillas.length; x++) {
                 casillero = this; 
                 piezaMovil = this.innerHTML;  
                 this.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
-                 //Movimientos posibles activados
+                //Movimientos posibles activados
                 ubicacion = this.id;
                 fila = ubicacion.substring(4, 5); 
                 columna = ubicacion.substring(12);
@@ -119,36 +119,52 @@ for(x=0; x<casillas.length; x++) {
                 jugador2.style.color = '';
                 
             }
-            else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Blanca"]') && !this.querySelector('img[alt="Pieza_Roja"]')){
-                
-                posicion = this;
-            if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id){
-                casillero.innerHTML = ''; 
-                this.innerHTML = piezaMovil; 
-                piezaMovilSeleccionada = false;
-                turno = 2;
-    
-                //Despinta ficha de titulo cuando ya no es tu turno
-                var fichaJugador1 = document.getElementById("img-jugador1");
-                fichaJugador1.classList.remove("pintado");
-                var fichaJugador2 = document.getElementById("img-jugador2");
-                fichaJugador2.classList.add("pintado");
-    
-                //Despinta nombre cuando ya no es tu turno
-                var jugador1 = document.getElementById("jugador1");
-                jugador1.style.color = '';
-                var jugador2 = document.getElementById("jugador2");
-                jugador2.style.color = 'lightblue';
 
-                 //Se remueve el efecto en las casillas porque ya movio la dama
+            else if(piezaMovilSeleccionada && !this.firstElementChild){                
+                posicion = this;
+                if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
+                    casillero.innerHTML = ''; 
+                    this.innerHTML = piezaMovil; 
+                    piezaMovilSeleccionada = false;
+                    turno = 2;
+    
+                    //Despinta ficha de titulo cuando ya no es tu turno
+                    var fichaJugador1 = document.getElementById("img-jugador1");
+                    fichaJugador1.classList.remove("pintado");
+                    var fichaJugador2 = document.getElementById("img-jugador2");
+                    fichaJugador2.classList.add("pintado");
+    
+                    //Despinta nombre cuando ya no es tu turno
+                    var jugador1 = document.getElementById("jugador1");
+                    jugador1.style.color = '';
+                    var jugador2 = document.getElementById("jugador2");
+                    jugador2.style.color = 'lightblue';
+
+                    //Se remueve el efecto en las casillas porque ya movio la dama
                     columna = columna + 2;
+                    
                     if(columna != 8){ 
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                     }
                     columna = columna - 2;
                     ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
-                }            
+                }                   
             }
+            else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Blanca"]')){
+                posicion = this;            
+                if(posicion == casillero){
+                    this.querySelector('img[alt="Pieza_Blanca"]').classList.remove("pintado");     
+                    piezaMovilSeleccionada = false;
+                    columna = columna + 2;
+                    if(columna != 8){ 
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    }
+                    columna = columna - 2;
+                    ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    console.log('tocaste la misma ficha')
+                }
+            }
+            
     
         }    //Turno 2 Piezas Rojas
         else if (turno == 2){
@@ -156,7 +172,7 @@ for(x=0; x<casillas.length; x++) {
                 casillero = this; 
                 piezaMovil = this.innerHTML; 
                 this.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado");
-                     //Movimientos posibles activados
+                //Movimientos posibles activados
                 ubicacion = this.id;
                 fila = ubicacion.substring(4, 5); 
                 columna = ubicacion.substring(12);
@@ -199,16 +215,15 @@ for(x=0; x<casillas.length; x++) {
                 jugador2.style.color = 'lightblue'; 
                 
             }
-            else if(piezaMovilSeleccionada && !this.querySelector('img[alt="Pieza_Roja"]') && !this.querySelector('img[alt="Pieza_Blanca"]')){
+            else if(piezaMovilSeleccionada  && !this.firstElementChild){
                 posicion = this; 
-                
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id){
                 casillero.innerHTML= ''; 
                 this.innerHTML = piezaMovil; 
                 piezaMovilSeleccionada = false;
                 posicion = this;
                 turno = 1;
-                 //Despinta ficha de titulo cuando ya no es tu turno
+                //Despinta ficha de titulo cuando ya no es tu turno
                 var fichaJugador2 = document.getElementById("img-jugador2");
                 fichaJugador2.classList.remove("pintado");
                 var fichaJugador1 = document.getElementById("img-jugador1");
@@ -231,6 +246,20 @@ for(x=0; x<casillas.length; x++) {
                     ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
                 } 
             } 
+            else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]')){
+                posicion = this;            
+                if(posicion == casillero){
+                    this.querySelector('img[alt="Pieza_Roja"]').classList.remove("pintado");     
+                    piezaMovilSeleccionada = false;
+                    columna = columna - 2;
+                    if(columna != 8){ 
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    }
+                    columna = columna + 2;
+                    ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    console.log('tocaste la misma ficha')
+                }
+            }
         }
         
     }
