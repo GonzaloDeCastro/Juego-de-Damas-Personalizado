@@ -239,7 +239,6 @@ for(x=0; x<casillas.length; x++) {
                     if(columna != 1){ 
                         columna = columna - 2;
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-
                         columna = columna + 2;
                         ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                     }  
@@ -251,12 +250,15 @@ for(x=0; x<casillas.length; x++) {
                 if(posicion == casillero){
                     this.querySelector('img[alt="Pieza_Roja"]').classList.remove("pintado");     
                     piezaMovilSeleccionada = false;
-                    columna = columna - 2;
-                    if(columna != 8){ 
+                
+                    if(columna != 1){ 
+                        columna = columna - 2;
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    }
-                    columna = columna + 2;
-                    ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        columna = columna + 2;
+                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    }  
+                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
+                
                     console.log('tocaste la misma ficha')
                 }
             }
