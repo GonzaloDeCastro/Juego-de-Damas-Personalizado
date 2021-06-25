@@ -86,21 +86,31 @@ for(x=0; x<casillas.length; x++) {
                     fila++;  
                     columna--;
                     ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                    if (!ubicacionFinalUno.firstElementChild){
                     ubicacionFinalUno.classList.add('movimiento');
+                    }
+                
                 } else {
                     if(columna == 0){
                         fila++;  
                         columna++;   
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                        ubicacionFinalUno.classList.add('movimiento');
+                        if (!ubicacionFinalUno.firstElementChild){
+                            ubicacionFinalUno.classList.add('movimiento');
+                            }
+                
                     } else {
                         fila++;  
                         columna++;   
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                        ubicacionFinalUno.classList.add('movimiento');
+                        if (!ubicacionFinalUno.firstElementChild){
+                            ubicacionFinalUno.classList.add('movimiento');
+                            }
                         columna = columna - 2;
                         ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna );
-                        ubicacionFinalDos.classList.add('movimiento');
+                        if (!ubicacionFinalDos.firstElementChild){
+                            ubicacionFinalDos.classList.add('movimiento');
+                            }
                     }
                 }
 
@@ -181,21 +191,29 @@ for(x=0; x<casillas.length; x++) {
                     fila--;  
                     columna--;
                     ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                    ubicacionFinalUno.classList.add('movimiento');
+                    if (!ubicacionFinalUno.firstElementChild){
+                        ubicacionFinalUno.classList.add('movimiento');
+                        }
                 } else {
                     if(columna == 0){
                         fila--;  
                         columna++;   
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                        ubicacionFinalUno.classList.add('movimiento');
+                        if (!ubicacionFinalUno.firstElementChild){
+                            ubicacionFinalUno.classList.add('movimiento');
+                            }
                     } else {
                         fila--;  
                         columna--;   
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                        ubicacionFinalUno.classList.add('movimiento');
+                        if (!ubicacionFinalUno.firstElementChild){
+                            ubicacionFinalUno.classList.add('movimiento');
+                            }
                         columna = columna + 2;
                         ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna );
-                        ubicacionFinalDos.classList.add('movimiento');
+                        if (!ubicacionFinalDos.firstElementChild){
+                            ubicacionFinalDos.classList.add('movimiento');
+                            }
                     }
                 }
 
