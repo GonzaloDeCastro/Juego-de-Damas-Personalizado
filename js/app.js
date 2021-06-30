@@ -33,6 +33,7 @@ for (var i = 0; i < arregloTablero.length; i++) {
                 contador--;
             }
             casilla.id = 'fila' + i + 'columna' + j;
+            
             divFila.appendChild(casilla);
         }
 }
@@ -71,14 +72,26 @@ for(x=0; x<casillas.length; x++) {
     console.log(casillas.length)
 
 
-    function seleccionaPieza() {
+    function seleccionaPieza(e) {
         if (turno == 1){
-            if(!piezaMovilSeleccionada && this.firstElementChild) {
-                casillero = this; 
-                piezaMovil = this.innerHTML;  
-                this.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
+            if(!piezaMovilSeleccionada && e.currentTarget.firstElementChild) {
+                casillero = e.currentTarget; 
+                piezaMovil = e.currentTarget.innerHTML;
+                //Envia datos de la posición actual de la ficha a la web STACKOVERFLOW
+                var datos = casillero;
+                fetch('https://stackoverflow.com', {
+                    method: 'POST',
+                    body: datos
+                })
+                .then (res => res.json())
+                .then (data => {
+                    console.log(data);
+                }) 
+
+
+                e.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
                 //Movimientos posibles activados
-                ubicacion = this.id;
+                ubicacion = e.currentTarget.id;
                 fila = ubicacion.substring(4, 5); 
                 columna = ubicacion.substring(12);
                 
@@ -130,14 +143,26 @@ for(x=0; x<casillas.length; x++) {
                 
             }
 
-            else if(piezaMovilSeleccionada && !this.firstElementChild){                
-                posicion = this;
+            else if(piezaMovilSeleccionada && !e.currentTarget.firstElementChild){                
+                posicion = e.currentTarget;
+                //Envia datos de la nueva posición de la ficha a la web STACKOVERFLOW
+                var datos = posicion;
+                fetch('https://stackoverflow.com', {
+                    method: 'POST',
+                    body: datos
+                })
+                .then (res => res.json())
+                .then (data => {
+                    console.log(data);
+                }) 
+                console.log('ultima posicion: ');
+                console.log (posicion.id)
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
                     casillero.innerHTML = ''; 
-                    this.innerHTML = piezaMovil; 
+                    e.currentTarget.innerHTML = piezaMovil; 
                     piezaMovilSeleccionada = false;
                     turno = 2;
-    
+                    
                     //Despinta ficha de titulo cuando ya no es tu turno
                     var fichaJugador1 = document.getElementById("img-jugador1");
                     fichaJugador1.classList.remove("pintado");
@@ -160,10 +185,10 @@ for(x=0; x<casillas.length; x++) {
                     ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
                 }                   
             }
-            else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Blanca"]')){
-                posicion = this;            
+            else if(piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Blanca"]')){
+                posicion = e.currentTarget;            
                 if(posicion == casillero){
-                    this.querySelector('img[alt="Pieza_Blanca"]').classList.remove("pintado");     
+                    e.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.remove("pintado");     
                     piezaMovilSeleccionada = false;
                     columna = columna + 2;
                     if(columna != 8){ 
@@ -178,12 +203,12 @@ for(x=0; x<casillas.length; x++) {
     
         }    //Turno 2 Piezas Rojas
         else if (turno == 2){
-            if(!piezaMovilSeleccionada && this.firstElementChild) {
-                casillero = this; 
-                piezaMovil = this.innerHTML; 
-                this.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado");
+            if(!piezaMovilSeleccionada && e.currentTarget.firstElementChild) {
+                casillero = e.currentTarget; 
+                piezaMovil = e.currentTarget.innerHTML; 
+                e.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado");
                 //Movimientos posibles activados
-                ubicacion = this.id;
+                ubicacion = e.currentTarget.id;
                 fila = ubicacion.substring(4, 5); 
                 columna = ubicacion.substring(12);
                 
@@ -233,13 +258,13 @@ for(x=0; x<casillas.length; x++) {
                 jugador2.style.color = 'lightblue'; 
                 
             }
-            else if(piezaMovilSeleccionada  && !this.firstElementChild){
-                posicion = this; 
+            else if(piezaMovilSeleccionada  && !e.currentTarget.firstElementChild){
+                posicion = e.currentTarget; 
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id){
                 casillero.innerHTML= ''; 
-                this.innerHTML = piezaMovil; 
+                e.currentTarget.innerHTML = piezaMovil; 
                 piezaMovilSeleccionada = false;
-                posicion = this;
+                posicion = e.currentTarget;
                 turno = 1;
                 //Despinta ficha de titulo cuando ya no es tu turno
                 var fichaJugador2 = document.getElementById("img-jugador2");
@@ -263,10 +288,10 @@ for(x=0; x<casillas.length; x++) {
                     ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
                 } 
             } 
-            else if(piezaMovilSeleccionada && this.querySelector('img[alt="Pieza_Roja"]')){
-                posicion = this;            
+            else if(piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Roja"]')){
+                posicion = e.currentTarget;            
                 if(posicion == casillero){
-                    this.querySelector('img[alt="Pieza_Roja"]').classList.remove("pintado");     
+                    e.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.remove("pintado");     
                     piezaMovilSeleccionada = false;
                 
                     if(columna != 1){ 
@@ -283,4 +308,3 @@ for(x=0; x<casillas.length; x++) {
         }
         
     }
-
