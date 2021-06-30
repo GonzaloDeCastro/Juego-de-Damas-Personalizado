@@ -205,7 +205,19 @@ for(x=0; x<casillas.length; x++) {
         else if (turno == 2){
             if(!piezaMovilSeleccionada && e.currentTarget.firstElementChild) {
                 casillero = e.currentTarget; 
-                piezaMovil = e.currentTarget.innerHTML; 
+                piezaMovil = e.currentTarget.innerHTML;
+                 //Envia datos de la posición actual de la ficha a la web STACKOVERFLOW
+                var datos = casillero;
+                fetch('https://stackoverflow.com', {
+                    method: 'POST',
+                    body: datos
+                })
+                .then (res => res.json())
+                .then (data => {
+                    console.log(data);
+                }) 
+
+
                 e.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado");
                 //Movimientos posibles activados
                 ubicacion = e.currentTarget.id;
@@ -259,7 +271,18 @@ for(x=0; x<casillas.length; x++) {
                 
             }
             else if(piezaMovilSeleccionada  && !e.currentTarget.firstElementChild){
-                posicion = e.currentTarget; 
+                posicion = e.currentTarget;
+                //Envia datos de la nueva posición de la ficha a la web STACKOVERFLOW
+                var datos = posicion;
+                fetch('https://stackoverflow.com', {
+                    method: 'POST',
+                    body: datos
+                })
+                .then (res => res.json())
+                .then (data => {
+                    console.log(data);
+                }) 
+                console.log('ultima posicion: '); 
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id){
                 casillero.innerHTML= ''; 
                 e.currentTarget.innerHTML = piezaMovil; 
