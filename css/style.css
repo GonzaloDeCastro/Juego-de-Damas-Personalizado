@@ -133,7 +133,7 @@ textarea{
 
 
 @media screen and (max-width: 1200px){
- 
+
         nav{
         flex-direction: column;
         }
@@ -151,7 +151,6 @@ textarea{
     }
 
 @media screen and (max-width: 900px){
-   
     section {
         flex: 76%;
     }
@@ -202,3 +201,8 @@ textarea{
     
     }
 
+@media screen and (max-width: 360px){
+    section {
+            flex: 80%;
+            }
+        }
