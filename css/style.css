@@ -118,7 +118,11 @@ footer {
     color: blanchedalmond;
 }
 
+<<<<<<< HEAD
 input[type = text],input[type = email],textarea, input[type = password]{
+=======
+input[type = text],input[type = email],textarea, input[type = submit], input[type = password]{
+>>>>>>> 7695f580acc464a81158d4213b5eb125a9159421
     border-radius: 8px;
     margin-bottom: 8px;
     border: 0;
@@ -130,6 +134,11 @@ textarea{
     height: 150px;
     font-size: 1.2em;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7695f580acc464a81158d4213b5eb125a9159421
 
 
 @media screen and (max-width: 1200px){
@@ -200,9 +209,12 @@ textarea{
         }
     
     }
+<<<<<<< HEAD
 
 @media screen and (max-width: 360px){
     section {
             flex: 80%;
             }
         }
+=======
+>>>>>>> 7695f580acc464a81158d4213b5eb125a9159421

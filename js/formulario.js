@@ -19,7 +19,10 @@ formulario.addEventListener('submit', (e) => {
                 // Enviamos el formulario y reseteamos campos
                 sendData(formulario);
                 formulario.reset();
+<<<<<<< HEAD
                 alert('Formulario enviado');
+=======
+>>>>>>> 7695f580acc464a81158d4213b5eb125a9159421
             }
         }
     }
@@ -33,7 +36,11 @@ const sendData = (data) => {
     } else {
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
+<<<<<<< HEAD
 //Recibe el mensaje en un archivo php que a través de localhost se comprobó que los datos llegan y se guardan
+=======
+
+>>>>>>> 7695f580acc464a81158d4213b5eb125a9159421
     xhr.open('POST', 'marvel.php');
     const formData = new FormData(data);
     xhr.send(formData);
