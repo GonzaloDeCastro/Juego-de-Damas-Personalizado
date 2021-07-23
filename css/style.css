@@ -79,7 +79,7 @@ section {
 }
 
 
-.claseButton {
+.claseBoton {
     text-decoration: none;
     margin-top: 15px;
     padding: 10px;
@@ -91,7 +91,7 @@ section {
     border: 2px solid #0c0c0e;
 }
 
-.claseButton:hover {
+.claseBoton:hover {
     margin-top: 15px;
     color: orange;
     padding: 20px;
