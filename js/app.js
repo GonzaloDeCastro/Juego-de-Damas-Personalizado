@@ -1,3 +1,4 @@
+
 //Objeto tablero
 var objetoTablero = {
     list:[
@@ -15,14 +16,16 @@ console.log(objetoTablero);
 //Solicita nombres de los jugadores y si los mismos quedan vacíos usará nombres por defecto
 var jugador1 = document.getElementById('jugador1');
 var jugador2 = document.getElementById('jugador2');
-jugador1.innerHTML = prompt('Ingrese el nombre del primer jugador:');
-jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:');
+jugador1 = jugador1.innerHTML = prompt('Ingrese el nombre del primer jugador:');
+jugador2 = jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:');
+
+
 
 if (jugador1.innerHTML == '' || jugador2.innerHTML == '' ){
-    jugador1.innerHTML = 'Jugador1';
-    jugador2.innerHTML = 'Jugador2';
+   jugador1 = jugador1.innerHTML = 'Jugador1';
+    jugador2 = jugador2.innerHTML = 'Jugador2';
 }
-
+console.log(jugador1);
 //Variables
 var casilla, piezaMovil, piezaMovilSeleccionada, posicion,jugador1 ,jugador2; 
 var turno = 1;
@@ -79,13 +82,15 @@ function rellenarTablero(){
 }
 rellenarTablero();
 
+function botonCuadrosNegros(){
 //Recorre el arreglo para darle boton de seleccion por casilla
 var casillas = document.getElementsByClassName('recuadroNegro'); 
 for(x=0; x<casillas.length; x++) {
     casillas[x].addEventListener('click', seleccionaPieza);
     }
-
-    pintarJugador1();
+}
+botonCuadrosNegros();
+    pintarJugador();
 
     function seleccionaPieza(e) {
         debugger;
@@ -115,14 +120,18 @@ for(x=0; x<casillas.length; x++) {
                         columna++;   
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
                         if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Blanca"]')){
+                            
+                            ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
                             ubicacionFinalUno.classList.add('movimiento');
                             }
                 
                     } else {
                         fila++;  
                         columna++;   
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ); console.log('ubicacionFinalUno '+ubicacionFinalUno.id);
+                        //Si en la ubicacion final
                         if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Blanca"]')){
+                            
                             ubicacionFinalUno.classList.add('movimiento');
                             }
                         columna = columna - 2;
@@ -160,7 +169,7 @@ for(x=0; x<casillas.length; x++) {
                     piezaMovilSeleccionada = false;
                     turno = 2;
                     
-                    pintarJugador2();
+                    pintarJugador();
                     
                     //Se remueve el efecto en las casillas porque ya movio la dama
                     columna = columna + 2;
@@ -168,7 +177,7 @@ for(x=0; x<casillas.length; x++) {
                     if(columna != 8){ 
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                     }
-                        columna = columna - 2;
+                      columna = columna - 2;
                         ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                         columna = columna + 2;
                         ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
@@ -232,8 +241,10 @@ for(x=0; x<casillas.length; x++) {
                             }
                     }
                 }
+
                 movimiento = document.querySelectorAll('.movimiento');
                 piezaMovilSeleccionada = true;            
+              
             }
             else if(piezaMovilSeleccionada  && !e.currentTarget.firstElementChild){
                 posicion = e.currentTarget;
@@ -254,7 +265,7 @@ for(x=0; x<casillas.length; x++) {
                 piezaMovilSeleccionada = false;
                 posicion = e.currentTarget;
                 turno = 1;
-                pintarJugador1();
+                pintarJugador();
                 //Se remueve el efecto en las casillas porque ya movio la dama
                 if(columna != 1){ 
                         columna = columna - 2;
@@ -288,7 +299,9 @@ for(x=0; x<casillas.length; x++) {
 
 
 // Se Pintan nombres de jugadores según el turno
-function pintarJugador1(){
+function pintarJugador(){
+if (turno == 1){
+
         //Pinta la ficha del titulo del jugador de turno
         var fichaJugador1 = document.getElementById("img-jugador1");
         fichaJugador1.classList.add("pintado");
@@ -300,9 +313,10 @@ function pintarJugador1(){
         jugador1.style.color = 'lightblue';
         var jugador2 = document.getElementById("jugador2");
         jugador2.style.color = '';
-}
 
-function pintarJugador2(){
+}
+else{
+
     //Despinta ficha de titulo cuando ya no es tu turno
     var fichaJugador1 = document.getElementById("img-jugador1");
     fichaJugador1.classList.remove("pintado");
@@ -314,6 +328,8 @@ function pintarJugador2(){
     jugador1.style.color = '';
     var jugador2 = document.getElementById("jugador2");
     jugador2.style.color = 'lightblue';
+
+}
 }
 
 
@@ -322,22 +338,77 @@ document.getElementById('guardar').addEventListener('click', guardar);
 function guardar(){
     // Guarda la partida
     localStorage.setItem('partida', JSON.stringify(objetoTablero.list));
-    
+    localStorage.setItem('turno', JSON.stringify(turno));
+    localStorage.setItem('jugador1', JSON.stringify(jugador1));
+    localStorage.setItem('jugador2', JSON.stringify(jugador2));
 }
 
 document.getElementById('cargar').addEventListener('click', cargar);
 function cargar(){
-    // Carga la partida guardada
+    // Carga la partida guardada con el nombre de los jugadores
     objetoTablero.list = JSON.parse(localStorage.getItem('partida'));
+    turno =  JSON.parse(localStorage.getItem('turno'));
+    var jugador1 = document.getElementById('jugador1');
+    var jugador2 = document.getElementById('jugador2');
+    jugador1 = jugador1.innerHTML =  JSON.parse(localStorage.getItem('jugador1'));
+    jugador2 = jugador2.innerHTML =  JSON.parse(localStorage.getItem('jugador2'));
+
+    pintarJugador();
     console.log(objetoTablero.list);  
+    console.log(jugador1);  
+    console.log(jugador2);  
     resetearTablero();
 }
 
-document.getElementById('boton').addEventListener('click', resetearTablero);
+
+document.getElementById('boton').addEventListener('click', nuevaPartida);
+function nuevaPartida(){
+    //Resetea el tablero para volver a cargarlo con las nuevas posiciones
+    tablero.innerHTML = '';
+    generarTablero();
+    var objetoTablero = {
+    list:[
+    [0,1,0,1,0,1,0,1],
+    [1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [2,0,2,0,2,0,2,0],
+    [0,2,0,2,0,2,0,2],
+    [2,0,2,0,2,0,2,0],
+]
+}
+//rellenarTablero();
+    for (var m = 0; m < 8; m++) {  
+        for (var n = 0; n < 8; n++) { 
+            //Ficha Blanca corresponde a 1
+            if (objetoTablero.list[m][n] === 1) {
+                var piezaBlanca = document.createElement('img');
+                piezaBlanca.src = 'imgs/'+1+'.png';
+                piezaBlanca.alt = 'Pieza_Blanca';
+                piezaBlanca.className = 'fichas';
+                document.getElementById('fila' + m +'columna' + n).appendChild(piezaBlanca);
+                
+            //Ficha Roja corresponde a 2
+            }else if (objetoTablero.list[m][n] === 2){
+                var piezaRoja = document.createElement('img');
+                piezaRoja.src = 'imgs/'+2+'.png';
+                piezaRoja.alt = 'Pieza_Roja';
+                piezaRoja.className = 'fichas';
+                document.getElementById('fila' + m +'columna' + n).appendChild(piezaRoja);
+            }  
+        }
+    }
+    botonCuadrosNegros();
+    turno = 1;
+    pintarJugador();
+}
+
 function resetearTablero(){
     //Resetea el tablero para volver a cargarlo con las nuevas posiciones
     tablero.innerHTML = '';
     generarTablero();
     rellenarTablero();
+    botonCuadrosNegros();
 }
 
