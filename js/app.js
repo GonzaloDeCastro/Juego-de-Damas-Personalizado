@@ -1,4 +1,3 @@
-
 //Objeto tablero
 var objetoTablero = {
     list:[
@@ -10,9 +9,9 @@ var objetoTablero = {
     [2,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2],
     [2,0,2,0,2,0,2,0],
-]
+    ]
 }
-console.log(objetoTablero);
+
 //Solicita nombres de los jugadores y si los mismos quedan vacíos usará nombres por defecto
 var jugador1 = document.getElementById('jugador1');
 var jugador2 = document.getElementById('jugador2');
@@ -22,13 +21,15 @@ jugador2 = jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:')
 
 
 if (jugador1.innerHTML == '' || jugador2.innerHTML == '' ){
-   jugador1 = jugador1.innerHTML = 'Jugador1';
+    jugador1 = jugador1.innerHTML = 'Jugador1';
     jugador2 = jugador2.innerHTML = 'Jugador2';
 }
-console.log(jugador1);
 //Variables
 var casilla, piezaMovil, piezaMovilSeleccionada, posicion,jugador1 ,jugador2; 
 var turno = 1;
+var comer = false;
+var diagonalesCortas = false;
+var columnaSiete = false;
 
 
 //Tablero
@@ -93,7 +94,7 @@ botonCuadrosNegros();
     pintarJugador();
 
     function seleccionaPieza(e) {
-        debugger;
+        //debugger;
         if (turno == 1){
         
             // Si el elemento no está seleccionado y hay un elemento hijo entonces
@@ -102,68 +103,210 @@ botonCuadrosNegros();
                 piezaMovil = e.currentTarget.innerHTML;
                 e.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
                 //Movimientos posibles activados
+                function ubicacion(){
                 ubicacion = e.currentTarget.id;
                 fila = ubicacion.substring(4, 5);
                 columna = ubicacion.substring(12);  
-                
+                }
+                ubicacion();
+                //Si la ficha está en la columna 7 
                 if(columna == 7){ 
+                    columnaSiete = true;
                     fila++;  
                     columna--;
-                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                    if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Blanca"]')){
-                    ubicacionFinalUno.classList.add('movimiento');
+                    ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                    
+                    if (ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]')){
+                        fila++;  
+                        columna = columna - 1;
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                        if (!ubicacionIzquierda.firstElementChild){
+                        ubicacionIzquierda.classList.add('movimiento');
+                        }
                     }
-                
-                } else {
-                    if(columna == 0){
-                        fila++;  
-                        columna++;   
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                        if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Blanca"]')){
-                            
-                            ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                            ubicacionFinalUno.classList.add('movimiento');
-                            }
-                
-                    } else {
-                        fila++;  
-                        columna++;   
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ); console.log('ubicacionFinalUno '+ubicacionFinalUno.id);
-                        //Si en la ubicacion final
-                        if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Blanca"]')){
-                            
-                            ubicacionFinalUno.classList.add('movimiento');
-                            }
-                        columna = columna - 2;
-                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna );
-                        if (!ubicacionFinalDos.querySelector('img[alt="Pieza_Blanca"]')){
-                            ubicacionFinalDos.classList.add('movimiento');
-                            }
-
+                    else if (!ubicacionIzquierda.querySelector('img[alt="Pieza_Blanca"]')){ 
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                        ubicacionIzquierda.classList.add('movimiento');          
                     }
                 }
-                movimiento = document.querySelectorAll('.movimiento');
-                piezaMovilSeleccionada = true;
-            }
+                //Si la ficha está en la columna 0  
+                else if(columna == 0){
+                        fila++;  
+                        columna++;   
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                        if (!ubicacionDerecha.querySelector('img[alt="Pieza_Blanca"]') && !ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]')){ 
+                                ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                                ubicacionDerecha.classList.add('movimiento');            
+                            }
+                        else if (ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]')){ 
+                                fila++;  
+                                columna++;
+                                ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                                if(!ubicacionDerecha.firstElementChild){
+                                ubicacionDerecha.classList.add('movimiento');
+                                }            
+                            }
+                        
+                    }
+                 //Si la ficha está en las columnas del medio     
+                else {
+                        //COMIENZA A VERIFICAR TODOS LOS MOVIMIENTOS
+                        fila++;  
+                        columna++;   
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                        columna = columna - 2;
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                        
+                        //Si en la ubicacion diagonal derecha e izquierda no hay una pieza Roja se pintará la casilla
+                        if (!ubicacionDerecha.firstElementChild && !ubicacionIzquierda.firstElementChild){         
+                            ubicacionDerecha.classList.add('movimiento');
+                            ubicacionIzquierda.classList.add('movimiento');
+                            diagonalesCortas = true;
+                            }
+
+
+                        //Si en la ubicacion diagonal derecha no hay una pieza roja y en la izquierda hay una pieza roja continúa
+                        else if(!ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]') && ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]') ){
+                                fila++;  
+                                columna--;
+                                diagonalesCortas = true;
+                                ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                                
+                                if (columna >= 0){
+                                //Si en la ubicacion diagonal izquierda no hay una pieza pinta casilla de movimiento
+                                    if(!ubicacionIzquierda.firstElementChild){
+                                        ubicacionIzquierda.classList.add('movimiento')
+                                        diagonalesCortas = true;
+                                        }
+                                //Si en la ubicacion diagonal izquierda hay una pieza roja pinta casilla de movimiento diagonal derecha
+                                //Acá nos manejamos con el movimiento izquierdo por eso hay que moverse mas
+                                    else {
+                                    fila--;  
+                                    columna = columna + 3;
+                                    ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                                    ubicacionIzquierda.classList.add('movimiento')
+                                    }
+                                }
+                                else {
+                                fila--;  
+                                columna = columna + 3;
+                                ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                                ubicacionIzquierda.classList.add('movimiento')
+                                }
+                            }
+                        //Si no hay una pieza roja  a la diagonal izquierda y hay una pieza roja a la diagonal derecha
+                        else if(!ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]') && ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]') ){
+                                fila++;  
+                                columna = columna + 3;
+                                ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                                //Si en la ubicacion diagonal derecha no hay una pieza pinta casilla de movimientos
+                                if (8 > columna){
+                                    if(!ubicacionDerecha.firstElementChild){
+                                    ubicacionDerecha.classList.add('movimiento')
+                                    diagonalesCortas = false;
+                                    }
+                                //Si en la ubicacion diagonal derecha hay una pieza pinta casilla de movimiento diagonal izquierda
+                                //Acá nos manejamos con el movimiento derecho por eso hay que moverse mas
+                                    else{
+                                    fila--;  
+                                    columna = columna - 3;
+                                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                                    ubicacionDerecha.classList.add('movimiento');
+                                    diagonalesCortas = false;
+                                    } 
+                            }
+                                else if (columna == 8){
+                                        
+                                    fila--;  
+                                    columna = columna - 3;   
+                                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                                    ubicacionDerecha.classList.add('movimiento');
+                                    diagonalesCortas = false;
+                                } 
+                            }
+                        //Si hay una pieza roja tanto a la diagonal izquierda y a la diagonal derecha
+                        else if (ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]') && ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]')){
+                                fila++;
+                                if (fila < 8){
+                                    columna = columna + 3;   
+                                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                                    if (columna < 8){
+                                        if (!ubicacionDerecha.firstElementChild){
+                                        ubicacionDerecha.classList.add('movimiento');
+                                        diagonalesCortas = false;
+                                        }
+                                    }
+                                    columna = columna - 4;
+                                    ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                                    //Si no hay un elemento en la segunda diagonal derecha la pinta
+                                    //Si no hay un elemento en la segunda diagonal izquierda la pinta
+                                    if (columna >= 0){
+                                        if (!ubicacionIzquierda.firstElementChild){
+                                            ubicacionIzquierda.classList.add('movimiento');
+                                            diagonalesCortas = false;
+                                            }
+                                    }
+                                }
+                            }
+
+                            
+                            //Si no hay una pieza blanca  a la diagonal izquierda y hay una pieza blanca a la diagonal derecha
+                        else if(!ubicacionIzquierda.querySelector('img[alt="Pieza_Blanca"]') && ubicacionDerecha.querySelector('img[alt="Pieza_Blanca"]') ){ 
+                            ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ); 
+                            //Si en la ubicacion diagonal izquierda no hay una pieza pinta casilla de movimiento
+                            if(!ubicacionIzquierda.firstElementChild){
+                                ubicacionIzquierda.classList.add('movimiento')
+                                diagonalesCortas = true;
+                            }
+                        }
+                            //Si  hay una pieza blanca  a la diagonal izquierda y no hay una pieza blanca a la diagonal derecha
+                        else if(ubicacionIzquierda.querySelector('img[alt="Pieza_Blanca"]') && !ubicacionDerecha.querySelector('img[alt="Pieza_Blanca"]') ){ 
+                            ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ); 
+                            //Si en la ubicacion diagonal derecha no hay una pieza pinta casilla de movimiento
+                            if(!ubicacionDerecha.firstElementChild){
+                                ubicacionDerecha.classList.add('movimiento')
+                                diagonalesCortas = true;
+                            }
+                        }
+                        
+                    }
+                    
+                    movimiento = document.querySelectorAll('.movimiento');
+                    piezaMovilSeleccionada = true;
+                    
+                }
 
             //Si el elemento está seleccionado y no hay un elemento hijo
             else if(piezaMovilSeleccionada && !e.currentTarget.firstElementChild){                
                 posicion = e.currentTarget;
-
                 //Moviendo la matriz   
                 ubicacion = e.currentTarget.id;
                 matrizFila = ubicacion.substring(4, 5);
                 matrizColumna = ubicacion.substring(12);  
                 objetoTablero.list[matrizFila][matrizColumna] = 1;
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
-                    casillero.innerHTML = ''; 
+                    casillero.innerHTML = '';
+                    if (comer == true){
+                        //busco la ubicacion de la casilla que está la ficha a comer
+                        fila--;
+                        columna++; 
+                        ubicacion = document.querySelector('#fila' + fila +'columna' + columna ).innerHTML = '';
+                        //busco la ubicacion de la casilla que está la ficha a comer para ponerla en la matriz
+                        matrizFila = fila;
+                        matrizColumna = columna;
+                        objetoTablero.list[matrizFila][matrizColumna] = 0;
+                        
+                        fila++;
+                        columna--;
+                        comer = false;
+                    } 
                 
                 //Moviendo la matriz     
                 ubicacion = casillero.id;
                 matrizFila = ubicacion.substring(4, 5);
                 matrizColumna = ubicacion.substring(12);  
                 objetoTablero.list[matrizFila][matrizColumna] = 0;
-
+                
 
                     e.currentTarget.innerHTML = piezaMovil; 
                     piezaMovilSeleccionada = false;
@@ -174,28 +317,56 @@ botonCuadrosNegros();
                     //Se remueve el efecto en las casillas porque ya movio la dama
                     columna = columna + 2;
                     
-                    if(columna != 8){ 
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    if(columna != 8){
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                     }
-                      columna = columna - 2;
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        columna = columna - 2;
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                         columna = columna + 2;
-                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                 }                   
             }
             //Si el elemento está seleccionadao y hay una pieza blanca
             else if(piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Blanca"]')){
-                posicion = e.currentTarget;            
+                posicion = e.currentTarget; 
+                comer = false;           
                 if(posicion == casillero){
                     e.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.remove("pintado");     
                     piezaMovilSeleccionada = false;
-                    columna = columna + 2;
-                    if(columna != 8){ 
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+
+                    if (diagonalesCortas == true){
+                    ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    columna = columna + 2; //si columna vale 4 funciona con las casillas largas y deja de funcionar con las cortas
+                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');   
+                    diagonalesCortas = false;
                     }
-                    columna = columna - 2;
-                    ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    console.log('tocaste la misma ficha')
+                    else{
+                        columna = columna + 4; //si columna vale 4 funciona con las casillas largas y deja de funcionar con las cortas
+                        //ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        columna = columna - 4;
+                        if(columna >= 0){
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        }
+                        if(columna == 10){
+                            columna = columna - 4;//Caso especial para las columnas de la punta derecha
+                            ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                            columna + 4;    
+                        }
+                        
+                        if (columnaSiete == true){
+                            
+                            columna = columna - 4;//Caso especial cuando se toca la columna de la punta derecha
+                            ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                            columna = columna + 4;
+                            ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                            columnaSiete = false;
+                        }
+                    }
+                    if(columna != 8){
+                        columna = columna + 4;
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                    }
+                    
                 }
             }
         
@@ -215,36 +386,36 @@ botonCuadrosNegros();
                 if(columna == 7){ 
                     fila--;  
                     columna--;
-                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                    if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Roja"]')){
-                        ubicacionFinalUno.classList.add('movimiento');
+                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                    if (!ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]')){
+                        ubicacionDerecha.classList.add('movimiento');
                         }
                 } else {
                     if(columna == 0){
                         fila--;  
                         columna++;   
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                        if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Roja"]')){
-                            ubicacionFinalUno.classList.add('movimiento');
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                        if (!ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]')){
+                            ubicacionDerecha.classList.add('movimiento');
                             }
                     } else {
                         fila--;  
                         columna--;   
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna );
-                        if (!ubicacionFinalUno.querySelector('img[alt="Pieza_Roja"]')){
-                            ubicacionFinalUno.classList.add('movimiento');
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
+                        if (!ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]')){
+                            ubicacionDerecha.classList.add('movimiento');
                             }
                         columna = columna + 2;
-                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna );
-                        if (!ubicacionFinalDos.querySelector('img[alt="Pieza_Roja"]')){
-                            ubicacionFinalDos.classList.add('movimiento');
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );
+                        if (!ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]')){
+                            ubicacionIzquierda.classList.add('movimiento');
                             }
                     }
                 }
 
                 movimiento = document.querySelectorAll('.movimiento');
                 piezaMovilSeleccionada = true;            
-              
+            
             }
             else if(piezaMovilSeleccionada  && !e.currentTarget.firstElementChild){
                 posicion = e.currentTarget;
@@ -269,11 +440,11 @@ botonCuadrosNegros();
                 //Se remueve el efecto en las casillas porque ya movio la dama
                 if(columna != 1){ 
                         columna = columna - 2;
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                         columna = columna + 2;
-                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                     }  
-                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
+                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
                 } 
             } 
             else if(piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Roja"]')){
@@ -284,11 +455,11 @@ botonCuadrosNegros();
                 
                     if(columna != 1){ 
                         columna = columna - 2;
-                        ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                         columna = columna + 2;
-                        ubicacionFinalDos = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                     }  
-                    ubicacionFinalUno = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
+                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
                 
                     console.log('tocaste la misma ficha')                  
                 }
@@ -354,9 +525,6 @@ function cargar(){
     jugador2 = jugador2.innerHTML =  JSON.parse(localStorage.getItem('jugador2'));
 
     pintarJugador();
-    console.log(objetoTablero.list);  
-    console.log(jugador1);  
-    console.log(jugador2);  
     resetearTablero();
 }
 
@@ -376,7 +544,7 @@ function nuevaPartida(){
     [2,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2],
     [2,0,2,0,2,0,2,0],
-]
+    ]
 }
 //rellenarTablero();
     for (var m = 0; m < 8; m++) {  
@@ -411,4 +579,3 @@ function resetearTablero(){
     rellenarTablero();
     botonCuadrosNegros();
 }
-
