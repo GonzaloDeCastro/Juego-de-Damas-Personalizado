@@ -7,7 +7,7 @@ var objetoTablero = {
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
     [2,0,2,0,2,0,2,0],
-    [0,2,0,2,0,2,0,0],
+    [0,2,0,2,0,2,0,2],
     [2,0,2,0,2,0,2,0],
     ]
 }
@@ -314,6 +314,10 @@ botonCuadrosNegros();
                         ubicacion = document.querySelector('#fila' + matrizFila +'columna' + matrizColumna ).innerHTML = '';
                         //busco la ubicacion de la casilla que está la ficha a comer para ponerla en la matriz
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
+                        pintaDoble = false;
+                        if(puntaje1 == 12){
+                            alert('GANADOR JUGADOR 1')
+                        }
                     }
                     //Si hay dos casillas pintadas para comer entra al if
                     else if (pintaDoble == true && columnaFinal < columnaInicial){
@@ -326,9 +330,12 @@ botonCuadrosNegros();
                         ubicacion = document.querySelector('#fila' + matrizFila +'columna' + matrizColumna ).innerHTML = '';
                         //busco la ubicacion de la casilla que está la ficha a comer para ponerla en la matriz
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
+                        pintaDoble = false;
+                        if(puntaje1 == 12){
+                            alert('GANADOR JUGADOR 1')
+                        }
                     }
                     if (comerDerecha == true){
-                        function comeFichaDerecha(){
                             //Suma puntos por pieza comida
                             puntaje1 = puntaje1 + 1;
                             puntosJugador1.innerHTML = puntaje1;
@@ -340,15 +347,15 @@ botonCuadrosNegros();
                             matrizFila = fila;
                             matrizColumna = columna;
                             objetoTablero.list[matrizFila][matrizColumna] = 0;
-                            
+                            if(puntaje1 == 12){
+                                alert('GANADOR JUGADOR 1')
+                            }
                             fila++;
                             columna--;
                             comerDerecha = false;
-                        }
-                        comeFichaDerecha();
+                        
                     }
                     else if (comerIzquierda == true ){
-                        function comeFichaIzquierda(){
                             //Suma puntos por pieza comida
                             puntaje1 = puntaje1 + 1;
                             puntosJugador1.innerHTML = puntaje1;
@@ -360,12 +367,12 @@ botonCuadrosNegros();
                             matrizFila = fila;
                             matrizColumna = columna;
                             objetoTablero.list[matrizFila][matrizColumna] = 0;
-                            
+                            if(puntaje1 == 12){
+                                alert('GANADOR JUGADOR 1')
+                            }
                             fila++;
                             columna--;
-                            comerDerecha = false;
-                        }
-                        comeFichaIzquierda()
+                            comerIzquierda = false;
                     } 
                 
                 //Moviendo la matriz     
@@ -719,6 +726,8 @@ function guardar(){
     localStorage.setItem('turno', JSON.stringify(turno));
     localStorage.setItem('jugador1', JSON.stringify(jugador1));
     localStorage.setItem('jugador2', JSON.stringify(jugador2));
+    localStorage.setItem('puntaje1', JSON.stringify(puntaje1));
+    localStorage.setItem('puntaje2', JSON.stringify(puntaje2));
 }
 
 document.getElementById('cargar').addEventListener('click', cargar);
@@ -728,8 +737,11 @@ function cargar(){
     turno =  JSON.parse(localStorage.getItem('turno'));
     var jugador1 = document.getElementById('jugador1');
     var jugador2 = document.getElementById('jugador2');
+    var puntosJugador1 = document.getElementById('puntosJugador1');
     jugador1 = jugador1.innerHTML =  JSON.parse(localStorage.getItem('jugador1'));
     jugador2 = jugador2.innerHTML =  JSON.parse(localStorage.getItem('jugador2'));
+    puntosJugador1 = puntosJugador1.innerHTML =  JSON.parse(localStorage.getItem('puntaje1'));
+    puntosJugador2 = puntosJugador2.innerHTML =  JSON.parse(localStorage.getItem('puntaje2'));
 
     pintarJugador();
     resetearTablero();
