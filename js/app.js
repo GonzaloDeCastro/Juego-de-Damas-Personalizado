@@ -15,8 +15,8 @@ var objetoTablero = {
 //Solicita nombres de los jugadores y si los mismos quedan vacíos usará nombres por defecto
 var jugador1 = document.getElementById('jugador1');
 var jugador2 = document.getElementById('jugador2');
-//jugador1 = jugador1.innerHTML = prompt('Ingrese el nombre del primer jugador:');
-//jugador2 = jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:');
+jugador1 = jugador1.innerHTML = prompt('Ingrese el nombre del primer jugador:');
+jugador2 = jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:');
 
 if (jugador1 == '' || jugador2 == '' ){
     jugador1 = jugador1.innerHTML = 'Jugador1';
@@ -34,6 +34,8 @@ var puntosJugador1 = document.getElementById('puntosJugador1');
 var puntosJugador2 = document.getElementById('puntosJugador2');
 var puntaje1 = 0;
 var puntaje2 = 0;
+var comparaRojas = 0;
+var comparaBlancas = 0;
 
 
 
@@ -119,7 +121,6 @@ botonCuadrosNegros();
                     fila++;  
                     columna--;
                     console.log('la fila '+fila);
-                    
                         ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );    
                         if (ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]')){
                             fila++;  
@@ -301,6 +302,10 @@ botonCuadrosNegros();
                 matrizColumna = ubicacion.substring(12);  
                 columnaFinal = matrizColumna;
                 objetoTablero.list[matrizFila][matrizColumna] = 1;
+                if(objetoTablero.list[7][0] === 1 || objetoTablero.list[7][2] === 1 || objetoTablero.list[7][4] === 1 || objetoTablero.list[7][6] === 1){
+                    comparaBlancas = comparaBlancas + 1;
+                    verificarEmpate();
+                }
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
                     casillero.innerHTML = '';
                     //Si hay dos casillas pintadas para comer entra al if
@@ -441,7 +446,7 @@ botonCuadrosNegros();
                     
                 }
             }
-            empate();
+            
         /************************************************************************************************/
         }    //Turno 2 Piezas Rojas
         
@@ -496,7 +501,6 @@ botonCuadrosNegros();
                     }
 
                 else {
-                    debugger;
                     //COMIENZA A VERIFICAR TODOS LOS MOVIMIENTOS
                     fila--;  
                     columna--;   
@@ -624,6 +628,10 @@ botonCuadrosNegros();
                 matrizColumna = ubicacion.substring(12);
                 columnaFinal = matrizColumna;  
                 objetoTablero.list[matrizFila][matrizColumna] = 2;
+                if(objetoTablero.list[0][1] === 2 || objetoTablero.list[0][3] === 2 || objetoTablero.list[0][5] === 2 || objetoTablero.list[0][7] === 2){
+                    comparaRojas = comparaRojas + 1;
+                    verificarEmpate();
+                }
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
                     casillero.innerHTML = '';
                     //Si hay dos casillas pintadas para comer entra al if
@@ -753,7 +761,6 @@ botonCuadrosNegros();
                     } 
                 }
             }
-            empate();
         }
     }
 
@@ -854,10 +861,10 @@ function nuevaPartida(){
     }
     botonCuadrosNegros();
     turno = 1;
-    puntosJugador1.innerHTML = '0';
-    //puntosJugador2.innerHTML = '0';
-    jugador1 = jugador1.innerHTML = 'JUGADOR 1';
-    jugador2 = jugador2.innerHTML = 'JUGADOR 2';
+    document.getElementById('puntosJugador1').innerHTML = '0';
+    document.getElementById('puntosJugador2').innerHTML = '0';
+    document.getElementById('jugador1').innerHTML = prompt('Ingrese el nombre del primer jugador:');
+    document.getElementById('jugador2').innerHTML = prompt('Ingrese el nombre del segundo jugador:');
     pintarJugador();
 }
 
@@ -877,9 +884,9 @@ function removerBotonCuadrosNegros(){
         }
     }
 
-function empate(){
+function verificarEmpate(){
     //Si se cumplen las siguientes consignas en alguno de los turnos saldrá alerta de empate y bloqueará los botones para seguir jugando
-    if(puntaje1 === 10 && puntaje2 === 10){
+    if(comparaBlancas > 0 && comparaRojas > 0){
         alert('Empate');
         removerBotonCuadrosNegros();
     }
