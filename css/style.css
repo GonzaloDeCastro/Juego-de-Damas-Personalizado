@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    font-weight: bold;
+    color: blanchedalmond;
 }
 
 body {
@@ -137,6 +139,12 @@ textarea{
     border-radius: 15px;
 }
 
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
 
 @media screen and (max-width: 1200px){
 
