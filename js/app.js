@@ -19,8 +19,8 @@ jugador1 = jugador1.innerHTML = prompt('Ingrese el nombre del primer jugador:');
 jugador2 = jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:');
 
 if (jugador1 == '' || jugador2 == '' ){
-    jugador1 = jugador1.innerHTML = 'Jugador1';
-    jugador2 = jugador2.innerHTML = 'Jugador2';
+    document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
+    document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
 }
 //Variables a
 var casilla, piezaMovil, piezaMovilSeleccionada, posicion,jugador1 ,jugador2; 
@@ -865,6 +865,10 @@ function nuevaPartida(){
     document.getElementById('puntosJugador2').innerHTML = '0';
     document.getElementById('jugador1').innerHTML = prompt('Ingrese el nombre del primer jugador:');
     document.getElementById('jugador2').innerHTML = prompt('Ingrese el nombre del segundo jugador:');
+    if (jugador1 == '' || jugador2 == '' ){
+        document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
+        document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
+    }
     pintarJugador();
 }
 
