@@ -48,3 +48,14 @@
 .movimiento{
 	background-color:aquamarine;
 }
+
+.ventanaEmergente{
+    margin-bottom: 15px;
+    background-color: brown;
+    padding: 25px;
+    border: solid;
+    border-color:darkred;
+    border-radius: 15px;
+    font-size: 2rem;
+    display: none;
+}

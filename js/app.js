@@ -32,8 +32,8 @@ var columnaSiete = false;
 var pintaDoble =  false;
 var puntosJugador1 = document.getElementById('puntosJugador1');
 var puntosJugador2 = document.getElementById('puntosJugador2');
-var puntaje1 = 0;
-var puntaje2 = 0;
+var puntaje1 = 11;
+var puntaje2 = 11;
 var comparaRojas = 0;
 var comparaBlancas = 0;
 
@@ -321,7 +321,8 @@ botonCuadrosNegros();
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
                         pintaDoble = false;
                         if(puntaje1 == 12){
-                            alert('GANADOR JUGADOR 1')
+                            document.getElementById('ganador1').style.display="block";
+                            removerBotonCuadrosNegros();
                         }
                     }
                     //Si hay dos casillas pintadas para comer entra al if
@@ -337,7 +338,8 @@ botonCuadrosNegros();
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
                         pintaDoble = false;
                         if(puntaje1 == 12){
-                            alert('GANADOR JUGADOR 1')
+                            document.getElementById('ganador1').style.display="block";
+                            removerBotonCuadrosNegros();
                         }
                     }
                     if (comerDerecha == true){
@@ -353,7 +355,8 @@ botonCuadrosNegros();
                             matrizColumna = columna;
                             objetoTablero.list[matrizFila][matrizColumna] = 0;
                             if(puntaje1 == 12){
-                                alert('GANADOR JUGADOR 1')
+                                document.getElementById('ganador1').style.display="block";
+                                removerBotonCuadrosNegros();
                             }
                             fila++;
                             columna--;
@@ -373,7 +376,8 @@ botonCuadrosNegros();
                             matrizColumna = columna;
                             objetoTablero.list[matrizFila][matrizColumna] = 0;
                             if(puntaje1 == 12){
-                                alert('GANADOR JUGADOR 1')
+                                document.getElementById('ganador1').style.display="block";
+                                removerBotonCuadrosNegros();
                             }
                             fila++;
                             columna--;
@@ -651,7 +655,8 @@ botonCuadrosNegros();
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
                         pintaDoble = false;
                         if(puntaje2 == 12){
-                            alert('GANADOR JUGADOR 1')
+                            document.getElementById('ganador2').style.display="block";
+                            removerBotonCuadrosNegros();
                         }
                     }
                     //Si hay dos casillas pintadas para comer entra al if
@@ -677,7 +682,8 @@ botonCuadrosNegros();
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
                         pintaDoble = false;
                         if(puntaje2 == 12){
-                            alert('GANADOR JUGADOR 1')
+                            document.getElementById('ganador2').style.display="block";
+                            removerBotonCuadrosNegros();
                         }
                     }
                     if (comerIzquierda == true ){
@@ -694,7 +700,8 @@ botonCuadrosNegros();
                         matrizColumna = columna;
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
                         if(puntaje2 == 12){
-                            alert('GANADOR JUGADOR 2')
+                            document.getElementById('ganador2').style.display="block";
+                            removerBotonCuadrosNegros();
                         }
                         fila++;
                         columna--;
@@ -714,7 +721,8 @@ botonCuadrosNegros();
                         matrizColumna = columna;
                         objetoTablero.list[matrizFila][matrizColumna] = 0;
                         if(puntaje2 == 12){
-                            alert('GANADOR JUGADOR 2')
+                            document.getElementById('ganador2').style.display="block";
+                            removerBotonCuadrosNegros();
                         }
                         fila++;
                         columna--;
@@ -870,6 +878,8 @@ function nuevaPartida(){
         document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
     }
     pintarJugador();
+    document.getElementById('ganador1').style.display="none";
+    document.getElementById('ganador2').style.display="none";
 }
 
 function resetearTablero(){
@@ -891,7 +901,7 @@ function removerBotonCuadrosNegros(){
 function verificarEmpate(){
     //Si se cumplen las siguientes consignas en alguno de los turnos saldrá alerta de empate y bloqueará los botones para seguir jugando
     if(comparaBlancas > 0 && comparaRojas > 0){
-        alert('Empate');
+        document.getElementById('empate').style.display="block";
         removerBotonCuadrosNegros();
     }
 }

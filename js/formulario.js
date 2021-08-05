@@ -1,5 +1,5 @@
 
-var form = document.getElementById('formulario');
+var formulario = document.getElementById('formulario');
 var nombre = document.getElementById('nombre'); 
 var email = document.getElementById('email');
 var comentario = document.getElementById('mensaje');
@@ -15,7 +15,7 @@ formulario.addEventListener('submit', (e) => {
         if (!formatoEmail.test(email.value)) {
             alert('email inválido');
         } else {
-            if (comentario.value.length < 5) {
+            if (comentario.value.length < 6) {
                 alert('El campo está vacío o el comentario es demasiado breve');
             } else {
                 // Abrimos la herramienta de envío de correos y reseteamos campos
