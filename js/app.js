@@ -32,8 +32,8 @@ var columnaSiete = false;
 var pintaDoble =  false;
 var puntosJugador1 = document.getElementById('puntosJugador1');
 var puntosJugador2 = document.getElementById('puntosJugador2');
-var puntaje1 = 11;
-var puntaje2 = 11;
+var puntaje1 = 0;
+var puntaje2 = 0;
 var comparaRojas = 0;
 var comparaBlancas = 0;
 
