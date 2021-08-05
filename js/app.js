@@ -15,13 +15,19 @@ var objetoTablero = {
 //Solicita nombres de los jugadores y si los mismos quedan vacíos usará nombres por defecto
 var jugador1 = document.getElementById('jugador1');
 var jugador2 = document.getElementById('jugador2');
-jugador1 = jugador1.innerHTML = prompt('Ingrese el nombre del primer jugador:');
-jugador2 = jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:');
 
-if (jugador1 == '' || jugador2 == '' ){
-    document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
-    document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
+document.getElementById('ingresaNombres').addEventListener('click', ingresaNombres);
+function ingresaNombres(){
+    jugador1 = jugador1.innerHTML = prompt('Ingrese el nombre del primer jugador:');
+    jugador2 = jugador2.innerHTML = prompt('Ingrese el nombre del segundo jugador:');
+    if (jugador1 == '' || jugador2 == '' ){
+        document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
+        document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
+    }
 }
+
+
+
 //Variables a
 var casilla, piezaMovil, piezaMovilSeleccionada, posicion,jugador1 ,jugador2; 
 var turno = 1;
@@ -832,6 +838,9 @@ function cargar(){
 document.getElementById('boton').addEventListener('click', nuevaPartida);
 function nuevaPartida(){
     //Resetea el tablero para volver a cargarlo con las nuevas posiciones
+    
+
+    
     tablero.innerHTML = '';
     generarTablero();
     var objetoTablero = {
@@ -867,19 +876,15 @@ function nuevaPartida(){
             }  
         }
     }
-    botonCuadrosNegros();
     turno = 1;
     document.getElementById('puntosJugador1').innerHTML = '0';
     document.getElementById('puntosJugador2').innerHTML = '0';
-    document.getElementById('jugador1').innerHTML = prompt('Ingrese el nombre del primer jugador:');
-    document.getElementById('jugador2').innerHTML = prompt('Ingrese el nombre del segundo jugador:');
-    if (jugador1 == '' || jugador2 == '' ){
-        document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
-        document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
-    }
-    pintarJugador();
+    document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
+    document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
     document.getElementById('ganador1').style.display="none";
     document.getElementById('ganador2').style.display="none";
+    botonCuadrosNegros();
+    pintarJugador();
 }
 
 function resetearTablero(){
