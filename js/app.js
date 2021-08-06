@@ -178,8 +178,7 @@ botonCuadrosNegros();
                             ubicacionIzquierda.classList.add('movimiento');
                             diagonalesCortas = true;
                             }
-
-
+                            
                         //Si en la ubicacion diagonal derecha no hay una pieza roja y en la izquierda hay una pieza roja continúa
                         else if(!ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]') && ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]') ){
                                 fila++;  
@@ -399,20 +398,7 @@ botonCuadrosNegros();
                 piezaMovilSeleccionada = false;
                 turno = 2;    
                 pintarJugador();
-                //Se remueve el efecto en las casillas porque ya movio la dama
-                    columna = columna + 2;
-                    if(columna != 8){
-                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    }
-                    columna = columna - 2;
-                    //Si comemos desde la columna 1 habiendo dos piezas rojas en ambas diagonales, este if hace que se despinten
-                    if(columna < 0){
-                        columna = columna + 4;
-                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    }
-                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    columna = columna + 4;
-                    ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+                removerSeleccion();
                 }                   
             }
             //Si el elemento está seleccionadao y hay una pieza blanca
@@ -422,38 +408,7 @@ botonCuadrosNegros();
                 if(posicion == casillero){
                     e.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.remove("pintado");     
                     piezaMovilSeleccionada = false;                    
-                    if (diagonalesCortas == true){
-                    ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    columna = columna + 2; //si columna vale 4 funciona con las casillas largas y deja de funcionar con las cortas
-                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');   
-                    diagonalesCortas = false;
-                    }
-                    else{
-                        columna = columna + 4; //si columna vale 4 funciona con las casillas largas y deja de funcionar con las cortas
-                        //ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                        columna = columna - 4;
-                        if(columna >= 0){
-                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                        }
-                        if(columna == 10){
-                            columna = columna - 4;//Caso especial para las columnas de la punta derecha
-                            ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                            columna + 4;    
-                        }
-                        if (columnaSiete == true){
-                            
-                            columna = columna - 4;//Caso especial cuando se toca la columna de la punta derecha
-                            ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                            columna = columna + 4;
-                            ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                            columnaSiete = false;
-                        }
-                    }
-                    if(columna != 8){
-                        columna = columna + 4;
-                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    }
-                    
+                    removerSeleccion();
                 }
             }
             
@@ -649,9 +604,7 @@ botonCuadrosNegros();
                         //Suma puntos por pieza comida
                         puntaje2 = puntaje2 + 1;
                         puntosJugador2.innerHTML = puntaje2;
-                        ubicacion = document.querySelector('#fila' + matrizFila +'columna' + matrizColumna ).classList.remove('movimiento');
                         matrizColumna = matrizColumna - 4;
-                        //ubicacion = document.querySelector('#fila' + matrizFila +'columna' + matrizColumna ).classList.remove('movimiento');
                         matrizColumna = matrizColumna + 4;
                         //busco la ubicacion de la casilla que está la ficha a comer
                         matrizFila++;
@@ -672,14 +625,7 @@ botonCuadrosNegros();
                         puntosJugador2.innerHTML = puntaje2;
                         //despinta la posicion a donde se mueve
                         console.log(matrizColumna);
-                        ubicacion = document.querySelector('#fila' + matrizFila +'columna' + matrizColumna ).classList.remove('movimiento');
-                        matrizColumna = matrizColumna - 1;
-                        matrizColumna = matrizColumna + 5;
                         //El siguiente if sirve para que siga comiendo normal en la columna 6 cuando se pinta doble
-                        if(matrizColumna < 8){ 
-                            ubicacion = document.querySelector('#fila' + matrizFila +'columna' + matrizColumna ).classList.remove('movimiento');
-                        }
-                        matrizColumna = matrizColumna - 4;
                         //busco la ubicacion de la casilla que está la ficha a comer
                         matrizFila++;
                         matrizColumna++;
@@ -696,7 +642,6 @@ botonCuadrosNegros();
                         //Suma puntos por pieza comida
                         puntaje2 = puntaje2 + 1;
                         puntosJugador2.innerHTML = puntaje2;
-                        ubicacion = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                         //busco la ubicacion de la casilla que está la ficha a comer
                         fila++;
                         columna++; 
@@ -717,7 +662,6 @@ botonCuadrosNegros();
                         //Suma puntos por pieza comida
                         puntaje2 = puntaje2 + 1;
                         puntosJugador2.innerHTML = puntaje2;
-                        ubicacion = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
                         //busco la ubicacion de la casilla que está la ficha a comer
                         fila++;
                         columna--; 
@@ -745,34 +689,15 @@ botonCuadrosNegros();
                 turno = 1;
                 pintarJugador();
                 //Se remueve el efecto en las casillas porque ya movio la dama
-                if(columna != 1){ 
-                        columna = columna - 2;
-                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                        columna = columna + 2;
-                        ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    }  
-                    ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento'); 
+                removerSeleccion();  
                 } 
             } 
             else if(piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Roja"]')){
                 posicion = e.currentTarget;            
                 if(posicion == casillero){
                     e.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.remove("pintado");     
-                    piezaMovilSeleccionada = false;          
-                    if (columna < 0){
-                        columna = columna + 4
-                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                        }         
-                    ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');                        
-                    if(diagonalesCortas == true){
-                        columna = columna - 2;
-                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                        diagonalesCortas = false;
-                    }
-                    else{
-                        columna = columna + 4;
-                        ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
-                    } 
+                    piezaMovilSeleccionada = false;
+                    removerSeleccion();          
                 }
             }
         }
@@ -886,7 +811,6 @@ function nuevaPartida(){
     botonCuadrosNegros();
     pintarJugador();
 }
-
 function resetearTablero(){
     //Resetea el tablero para volver a cargarlo con las nuevas posiciones
     tablero.innerHTML = '';
@@ -894,7 +818,6 @@ function resetearTablero(){
     rellenarTablero();
     botonCuadrosNegros();
 }
-
 function removerBotonCuadrosNegros(){
     //Recorre el arreglo para quitar boton de seleccion por casilla
     var casillas = document.getElementsByClassName('recuadroNegro'); 
@@ -910,4 +833,12 @@ function verificarEmpate(){
         removerBotonCuadrosNegros();
     }
 }
-
+function removerSeleccion(){
+    for (var m = 0; m < 10; m++) {  
+        for (var n = 0; n < 10; n++) {
+            ubicacionDerecha.classList.remove('movimiento');
+            ubicacionIzquierda.classList.remove('movimiento');
+            document.querySelector('#fila' + fila +'columna' + columna ).classList.remove('movimiento');
+        }
+    }
+}

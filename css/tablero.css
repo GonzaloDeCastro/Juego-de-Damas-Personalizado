@@ -34,10 +34,7 @@
 .fichas{
     width: 60px;
 	height: 60px;
-}
-
-#fila4columna7 img{
-    display: none;
+    cursor:pointer;
 }
 
 .pintado{
