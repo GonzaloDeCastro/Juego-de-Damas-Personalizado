@@ -26,9 +26,7 @@ function ingresaNombres(){
     }
 }
 
-
-
-//Variables a
+//Variables
 var casilla, piezaMovil, piezaMovilSeleccionada, posicion,jugador1 ,jugador2; 
 var turno = 1;
 var comerIzquierda = false;
@@ -42,8 +40,6 @@ var puntaje1 = 0;
 var puntaje2 = 0;
 var comparaRojas = 0;
 var comparaBlancas = 0;
-
-
 
 //Tablero
 function generarTablero(){
@@ -104,8 +100,7 @@ for(x=0; x<casillas.length; x++) {
     }
 }
 botonCuadrosNegros();
-    pintarJugador();
-
+pintarJugador();
     function seleccionaPieza(e) {
         if (turno == 1){
             // Si el elemento no está seleccionado y hay un elemento hijo entonces
@@ -752,6 +747,7 @@ function cargar(){
     var jugador1 = document.getElementById('jugador1');
     var jugador2 = document.getElementById('jugador2');
     var puntosJugador1 = document.getElementById('puntosJugador1');
+    var puntosJugador2 = document.getElementById('puntosJugador2');
     jugador1 = jugador1.innerHTML =  JSON.parse(localStorage.getItem('jugador1'));
     jugador2 = jugador2.innerHTML =  JSON.parse(localStorage.getItem('jugador2'));
     puntosJugador1 = puntosJugador1.innerHTML =  JSON.parse(localStorage.getItem('puntaje1'));
@@ -763,9 +759,6 @@ function cargar(){
 document.getElementById('boton').addEventListener('click', nuevaPartida);
 function nuevaPartida(){
     //Resetea el tablero para volver a cargarlo con las nuevas posiciones
-    
-
-    
     tablero.innerHTML = '';
     generarTablero();
     var objetoTablero = {
