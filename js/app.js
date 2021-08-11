@@ -302,8 +302,6 @@ pintarJugador();
                 matrizColumna = ubicacion.substring(12);  
                 columnaFinal = matrizColumna;
                 objetoTablero.list[matrizFila][matrizColumna] = 1;
-                console.log('Roja '+comparaRojas);
-                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[7][0] === 1 || objetoTablero.list[7][2] === 1 || objetoTablero.list[7][4] === 1 || objetoTablero.list[7][6] === 1){
                     comparaBlancas = true;
                     verificarEmpate();
@@ -592,8 +590,6 @@ pintarJugador();
                 matrizColumna = ubicacion.substring(12);
                 columnaFinal = matrizColumna;  
                 objetoTablero.list[matrizFila][matrizColumna] = 2;
-                console.log('Roja '+comparaRojas);
-                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[0][1] === 2 || objetoTablero.list[0][3] === 2 || objetoTablero.list[0][5] === 2 || objetoTablero.list[0][7] === 2){
                     comparaRojas = true;
                     verificarEmpate();
@@ -766,45 +762,27 @@ function cargar(){
 
 document.getElementById('boton').addEventListener('click', nuevaPartida);
 function nuevaPartida(){
-    //Resetea el tablero para volver a cargarlo con las nuevas posiciones
+    //Resetea el tablero para volver a cargarlo con las nuevas posiciones 
+    objetoTablero = {
+        list:[
+        [0,1,0,1,0,1,0,1],
+        [1,0,1,0,1,0,1,0],
+        [0,1,0,1,0,1,0,1],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [2,0,2,0,2,0,2,0],
+        [0,2,0,2,0,2,0,2],
+        [2,0,2,0,2,0,2,0],
+        ]
+    } 
     tablero.innerHTML = '';
-    generarTablero();
-    var objetoTablero = {
-    list:[
-    [0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [2,0,2,0,2,0,2,0],
-    [0,2,0,2,0,2,0,2],
-    [2,0,2,0,2,0,2,0],
-    ]
-}
-//rellenarTablero();
-    for (var m = 0; m < 8; m++) {  
-        for (var n = 0; n < 8; n++) { 
-            //Ficha Blanca corresponde a 1
-            if (objetoTablero.list[m][n] === 1) {
-                var piezaBlanca = document.createElement('img');
-                piezaBlanca.src = 'imgs/'+1+'.png';
-                piezaBlanca.alt = 'Pieza_Blanca';
-                piezaBlanca.className = 'fichas';
-                document.getElementById('fila' + m +'columna' + n).appendChild(piezaBlanca);
-                
-            //Ficha Roja corresponde a 2
-            }else if (objetoTablero.list[m][n] === 2){
-                var piezaRoja = document.createElement('img');
-                piezaRoja.src = 'imgs/'+2+'.png';
-                piezaRoja.alt = 'Pieza_Roja';
-                piezaRoja.className = 'fichas';
-                document.getElementById('fila' + m +'columna' + n).appendChild(piezaRoja);
-            }  
-        }
-    }
+    generarTablero();  
+    rellenarTablero();
     turno = 1;
     comparaBlancas = false;
     comparaRojas = false;
+    puntaje1 = 0;
+    puntaje2 = 0;
     document.getElementById('puntosJugador1').innerHTML = '0';
     document.getElementById('puntosJugador2').innerHTML = '0';
     document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
@@ -815,6 +793,7 @@ function nuevaPartida(){
     botonCuadrosNegros();
     pintarJugador();
 }
+
 function resetearTablero(){
     //Resetea el tablero para volver a cargarlo con las nuevas posiciones
     tablero.innerHTML = '';
@@ -835,14 +814,6 @@ function verificarEmpate(){
     if(comparaBlancas == true && comparaRojas == true){
         comparaBlancas = false;
         comparaRojas = false;
-        objetoTablero.list[7][0] = 2; 
-        objetoTablero.list[7][2] = 2;
-        objetoTablero.list[7][4] = 2;
-        objetoTablero.list[7][6] = 2;
-        objetoTablero.list[0][1] = 1;
-        objetoTablero.list[0][3] = 1; 
-        objetoTablero.list[0][5] = 1;
-        objetoTablero.list[0][7] = 1;
         document.getElementById('empate').style.display="block";
         removerBotonCuadrosNegros();
     }
