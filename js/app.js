@@ -792,6 +792,11 @@ function nuevaPartida(){
     ]
 }
 rellenarTablero();
+    comerIzquierda = false;
+    comerDerecha = false;
+    diagonalesCortas = false;
+    columnaSiete = false;
+    pintaDoble =  false;
     turno = 1;
     comparaBlancas = false;
     comparaRojas = false;
