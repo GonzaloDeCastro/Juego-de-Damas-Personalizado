@@ -38,8 +38,8 @@ var puntosJugador1 = document.getElementById('puntosJugador1');
 var puntosJugador2 = document.getElementById('puntosJugador2');
 var puntaje1 = 0;
 var puntaje2 = 0;
-var comparaRojas = 0;
-var comparaBlancas = 0;
+var comparaRojas = false;
+var comparaBlancas = false;
 
 //Tablero
 function generarTablero(){
@@ -302,8 +302,10 @@ pintarJugador();
                 matrizColumna = ubicacion.substring(12);  
                 columnaFinal = matrizColumna;
                 objetoTablero.list[matrizFila][matrizColumna] = 1;
+                console.log('Roja '+comparaRojas);
+                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[7][0] === 1 || objetoTablero.list[7][2] === 1 || objetoTablero.list[7][4] === 1 || objetoTablero.list[7][6] === 1){
-                    comparaBlancas = comparaBlancas + 1;
+                    comparaBlancas = true;
                     verificarEmpate();
                 }
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
@@ -357,6 +359,8 @@ pintarJugador();
                             if(puntaje1 == 12){
                                 document.getElementById('ganador1').style.display="block";
                                 removerBotonCuadrosNegros();
+                                puntaje1 = 0;
+                                puntaje2 = 0;
                             }
                             fila++;
                             columna--;
@@ -588,8 +592,10 @@ pintarJugador();
                 matrizColumna = ubicacion.substring(12);
                 columnaFinal = matrizColumna;  
                 objetoTablero.list[matrizFila][matrizColumna] = 2;
+                console.log('Roja '+comparaRojas);
+                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[0][1] === 2 || objetoTablero.list[0][3] === 2 || objetoTablero.list[0][5] === 2 || objetoTablero.list[0][7] === 2){
-                    comparaRojas = comparaRojas + 1;
+                    comparaRojas = true;
                     verificarEmpate();
                 }
                 if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
@@ -668,6 +674,8 @@ pintarJugador();
                         if(puntaje2 == 12){
                             document.getElementById('ganador2').style.display="block";
                             removerBotonCuadrosNegros();
+                            puntaje1 = 0;
+                            puntaje2 = 0;
                         }
                         fila++;
                         columna--;
@@ -795,12 +803,15 @@ function nuevaPartida(){
         }
     }
     turno = 1;
+    comparaBlancas = false;
+    comparaRojas = false;
     document.getElementById('puntosJugador1').innerHTML = '0';
     document.getElementById('puntosJugador2').innerHTML = '0';
     document.getElementById('jugador1').innerHTML = 'JUGADOR 1';
     document.getElementById('jugador2').innerHTML = 'JUGADOR 2';
     document.getElementById('ganador1').style.display="none";
     document.getElementById('ganador2').style.display="none";
+    document.getElementById('empate').style.display="none";
     botonCuadrosNegros();
     pintarJugador();
 }
@@ -821,7 +832,17 @@ function removerBotonCuadrosNegros(){
 
 function verificarEmpate(){
     //Si se cumplen las siguientes consignas en alguno de los turnos saldrá alerta de empate y bloqueará los botones para seguir jugando
-    if(comparaBlancas > 0 && comparaRojas > 0){
+    if(comparaBlancas == true && comparaRojas == true){
+        comparaBlancas = false;
+        comparaRojas = false;
+        objetoTablero.list[7][0] = 2; 
+        objetoTablero.list[7][2] = 2;
+        objetoTablero.list[7][4] = 2;
+        objetoTablero.list[7][6] = 2;
+        objetoTablero.list[0][1] = 1;
+        objetoTablero.list[0][3] = 1; 
+        objetoTablero.list[0][5] = 1;
+        objetoTablero.list[0][7] = 1;
         document.getElementById('empate').style.display="block";
         removerBotonCuadrosNegros();
     }
