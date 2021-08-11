@@ -302,6 +302,8 @@ pintarJugador();
                 matrizColumna = ubicacion.substring(12);  
                 columnaFinal = matrizColumna;
                 objetoTablero.list[matrizFila][matrizColumna] = 1;
+                console.log('Roja '+comparaRojas);
+                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[7][0] === 1 || objetoTablero.list[7][2] === 1 || objetoTablero.list[7][4] === 1 || objetoTablero.list[7][6] === 1){
                     comparaBlancas = true;
                     verificarEmpate();
@@ -590,6 +592,8 @@ pintarJugador();
                 matrizColumna = ubicacion.substring(12);
                 columnaFinal = matrizColumna;  
                 objetoTablero.list[matrizFila][matrizColumna] = 2;
+                console.log('Roja '+comparaRojas);
+                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[0][1] === 2 || objetoTablero.list[0][3] === 2 || objetoTablero.list[0][5] === 2 || objetoTablero.list[0][7] === 2){
                     comparaRojas = true;
                     verificarEmpate();
@@ -756,28 +760,38 @@ function cargar(){
     jugador2 = jugador2.innerHTML =  JSON.parse(localStorage.getItem('jugador2'));
     puntosJugador1 = puntosJugador1.innerHTML =  JSON.parse(localStorage.getItem('puntaje1'));
     puntosJugador2 = puntosJugador2.innerHTML =  JSON.parse(localStorage.getItem('puntaje2'));
+    puntaje1 = JSON.parse(localStorage.getItem('puntaje1'));
+    puntaje2 = JSON.parse(localStorage.getItem('puntaje2'));
     pintarJugador();
     resetearTablero();
 }
 
+function resetearTablero(){
+    //Resetea el tablero para volver a cargarlo con las nuevas posiciones
+    tablero.innerHTML = '';
+    generarTablero();
+    rellenarTablero();
+    botonCuadrosNegros();
+}
+
 document.getElementById('boton').addEventListener('click', nuevaPartida);
 function nuevaPartida(){
-    //Resetea el tablero para volver a cargarlo con las nuevas posiciones 
-    objetoTablero = {
-        list:[
-        [0,1,0,1,0,1,0,1],
-        [1,0,1,0,1,0,1,0],
-        [0,1,0,1,0,1,0,1],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [2,0,2,0,2,0,2,0],
-        [0,2,0,2,0,2,0,2],
-        [2,0,2,0,2,0,2,0],
-        ]
-    } 
+    //Resetea el tablero para volver a cargarlo con las nuevas posiciones
     tablero.innerHTML = '';
-    generarTablero();  
-    rellenarTablero();
+    generarTablero();
+    objetoTablero = {
+    list:[
+    [0,1,0,1,0,1,0,1],
+    [1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [2,0,2,0,2,0,2,0],
+    [0,2,0,2,0,2,0,2],
+    [2,0,2,0,2,0,2,0],
+    ]
+}
+rellenarTablero();
     turno = 1;
     comparaBlancas = false;
     comparaRojas = false;
@@ -794,13 +808,6 @@ function nuevaPartida(){
     pintarJugador();
 }
 
-function resetearTablero(){
-    //Resetea el tablero para volver a cargarlo con las nuevas posiciones
-    tablero.innerHTML = '';
-    generarTablero();
-    rellenarTablero();
-    botonCuadrosNegros();
-}
 function removerBotonCuadrosNegros(){
     //Recorre el arreglo para quitar boton de seleccion por casilla
     var casillas = document.getElementsByClassName('recuadroNegro'); 
