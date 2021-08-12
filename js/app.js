@@ -65,7 +65,6 @@ function generarTablero(){
     }
 }
 generarTablero();
-
 //Fichas
 //Recorre el tablero y agrega las fichas de acuerdo al array objetoTablero.list
 function rellenarTablero(){
@@ -78,9 +77,9 @@ function rellenarTablero(){
                 piezaBlanca.alt = 'Pieza_Blanca';
                 piezaBlanca.className = 'fichas';
                 document.getElementById('fila' + m +'columna' + n).appendChild(piezaBlanca);
-                
+            }
             //Ficha Roja corresponde a 2
-            }else if (objetoTablero.list[m][n] === 2){
+            else if (objetoTablero.list[m][n] === 2){
                 var piezaRoja = document.createElement('img');
                 piezaRoja.src = 'imgs/'+2+'.png';
                 piezaRoja.alt = 'Pieza_Roja';
@@ -91,7 +90,6 @@ function rellenarTablero(){
     }
 }
 rellenarTablero();
-
 function botonCuadrosNegros(){
 //Recorre el arreglo para darle boton de seleccion por casilla
 var casillas = document.getElementsByClassName('recuadroNegro'); 
@@ -101,27 +99,25 @@ for(x=0; x<casillas.length; x++) {
 }
 botonCuadrosNegros();
 pintarJugador();
-    function seleccionaPieza(e) {
+    function seleccionaPieza(g) {
         if (turno == 1){
             // Si el elemento no está seleccionado y hay un elemento hijo entonces
-            if(!piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Blanca"]')) {
-                casillero = e.currentTarget; 
-                piezaMovil = e.currentTarget.innerHTML;
-                e.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
+            if(!piezaMovilSeleccionada && g.currentTarget.querySelector('img[alt="Pieza_Blanca"]')) {
+                //currentTarget devuelve el elemento del DOM que está disparando el evento actual y la "e" es el argumento del elemento en si mismo, el objeto event que se recibe
+                casillero = g.currentTarget; 
+                //Asigna a pieza movil el elemento selecccionado que luego se va a mover
+                piezaMovil = g.currentTarget.innerHTML;
+                g.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.add("pintado"); 
                 //Movimientos posibles activados
-                function ubicacion(){
-                    ubicacion = e.currentTarget.id;
-                    fila = ubicacion.substring(4, 5);
-                    columna = ubicacion.substring(12);  
-                }
-                ubicacion();
+                ubicacion = g.currentTarget.id;
+                fila = ubicacion.substring(4, 5);
+                columna = ubicacion.substring(12);  
                 columnaInicial = columna;
                 //Si la ficha está en la columna 7 
                 if(columna == 7){ 
                     columnaSiete = true;
                     fila++;  
                     columna--;
-                    console.log('la fila '+fila);
                         ubicacionIzquierda = document.querySelector('#fila' + fila +'columna' + columna );    
                         if (ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]')){
                             fila++;  
@@ -285,30 +281,27 @@ pintarJugador();
                                 diagonalesCortas = true;
                             }
                         }
-                        
                     }
-                    
                     movimiento = document.querySelectorAll('.movimiento');
                     piezaMovilSeleccionada = true;
-                    
                 }
-
+            else if(!piezaMovilSeleccionada && g.currentTarget.querySelector('img[alt="Pieza_Roja"]')){
+                alert('Turno Jugador1');
+            }
             //Si el elemento está seleccionado y no hay un elemento hijo
-            else if(piezaMovilSeleccionada && !e.currentTarget.firstElementChild){
-                posicion = e.currentTarget;
+            else if(piezaMovilSeleccionada && !g.currentTarget.firstElementChild){
+                posicion = g.currentTarget;
                 //Moviendo la matriz   
-                ubicacion = e.currentTarget.id;
+                ubicacion = g.currentTarget.id;
                 matrizFila = ubicacion.substring(4, 5);
                 matrizColumna = ubicacion.substring(12);  
                 columnaFinal = matrizColumna;
                 objetoTablero.list[matrizFila][matrizColumna] = 1;
-                console.log('Roja '+comparaRojas);
-                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[7][0] === 1 || objetoTablero.list[7][2] === 1 || objetoTablero.list[7][4] === 1 || objetoTablero.list[7][6] === 1){
                     comparaBlancas = true;
                     verificarEmpate();
                 }
-                if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
+                if(posicion != casillero && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
                     casillero.innerHTML = '';
                     //Si hay dos casillas pintadas para comer entra al if
                     if (pintaDoble == true && columnaFinal > columnaInicial){
@@ -387,13 +380,14 @@ pintarJugador();
                             columna--;
                             comerIzquierda = false;
                     } 
-                
                 //Moviendo la matriz     
                 ubicacion = casillero.id;
                 matrizFila = ubicacion.substring(4, 5);
                 matrizColumna = ubicacion.substring(12);  
                 objetoTablero.list[matrizFila][matrizColumna] = 0;
-                e.currentTarget.innerHTML = piezaMovil; 
+                //Asigna el contenido de piezaMovil en el elemento clickeado
+                g.currentTarget.innerHTML = piezaMovil;
+                console.log(piezaMovil); 
                 piezaMovilSeleccionada = false;
                 turno = 2;    
                 pintarJugador();
@@ -401,26 +395,26 @@ pintarJugador();
                 }                   
             }
             //Si el elemento está seleccionadao y hay una pieza blanca
-            else if(piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Blanca"]')){
-                posicion = e.currentTarget; 
+            else if(piezaMovilSeleccionada && g.currentTarget.querySelector('img[alt="Pieza_Blanca"]')){
+                posicion = g.currentTarget; 
                 comer = false;           
                 if(posicion == casillero){
-                    e.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.remove("pintado");     
+                    g.currentTarget.querySelector('img[alt="Pieza_Blanca"]').classList.remove("pintado");     
                     piezaMovilSeleccionada = false;                    
                     removerSeleccion();
                 }
             }
             
         /************************************************************************************************/
-        }    //Turno 2 Piezas Rojas
-        
+        }    
+        //Turno 2 Piezas Rojas
         else if (turno == 2){
-            if(!piezaMovilSeleccionada && e.currentTarget.firstElementChild) {
-                casillero = e.currentTarget; 
-                piezaMovil = e.currentTarget.innerHTML;
-                e.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado");
+            if(!piezaMovilSeleccionada && g.currentTarget.querySelector('img[alt="Pieza_Roja"]')) {
+                casillero = g.currentTarget; 
+                piezaMovil = g.currentTarget.innerHTML;
+                g.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.add("pintado");
                 //Movimientos posibles activados
-                ubicacion = e.currentTarget.id;
+                ubicacion = g.currentTarget.id;
                 fila = ubicacion.substring(4, 5); 
                 columna = ubicacion.substring(12);
                 columnaInicial = columna;
@@ -479,13 +473,10 @@ pintarJugador();
                         }
                     //Si en la ubicacion diagonal derecha no hay una pieza roja y en la izquierda hay una pieza roja continúa o Si en la ubicacion diagonal derecha no hay una pieza roja y en la ubicacion diagonal izquierda no hay pieza blanca
                     else if(!ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]') && ubicacionIzquierda.querySelector('img[alt="Pieza_Roja"]') || !ubicacionDerecha.querySelector('img[alt="Pieza_Roja"]') && !ubicacionIzquierda.querySelector('img[alt="Pieza_Blanca"]')){
-                        //diagonalesCortas = true;
                         ubicacionDerecha = document.querySelector('#fila' + fila +'columna' + columna );
-                        
                         //Si en la ubicacion diagonal izquierda no hay una pieza pinta casilla de movimiento
                             if(!ubicacionDerecha.firstElementChild){
                                 ubicacionDerecha.classList.add('movimiento')
-                                //diagonalesCortas = true;
                                 }
                         //Si en la ubicacion diagonal izquierda hay una pieza roja pinta casilla de movimiento diagonal derecha
                         //Acá nos manejamos con el movimiento izquierdo por eso hay que moverse mas
@@ -584,21 +575,22 @@ pintarJugador();
                 movimiento = document.querySelectorAll('.movimiento');
                 piezaMovilSeleccionada = true;             
             }
-            else if(piezaMovilSeleccionada  && !e.currentTarget.firstElementChild){
-                posicion = e.currentTarget;
+            else if(!piezaMovilSeleccionada && g.currentTarget.querySelector('img[alt="Pieza_Blanca"]')){
+                alert('Turno Jugador2');
+            }
+            else if(piezaMovilSeleccionada  && !g.currentTarget.firstElementChild){
+                posicion = g.currentTarget;
                 //Moviendo la matriz   
-                ubicacion = e.currentTarget.id;
+                ubicacion = g.currentTarget.id;
                 matrizFila = ubicacion.substring(4, 5);
                 matrizColumna = ubicacion.substring(12);
                 columnaFinal = matrizColumna;  
                 objetoTablero.list[matrizFila][matrizColumna] = 2;
-                console.log('Roja '+comparaRojas);
-                console.log('Blanca '+comparaBlancas);
                 if(objetoTablero.list[0][1] === 2 || objetoTablero.list[0][3] === 2 || objetoTablero.list[0][5] === 2 || objetoTablero.list[0][7] === 2){
                     comparaRojas = true;
                     verificarEmpate();
                 }
-                if(posicion != casilla && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
+                if(posicion != casillero && posicion.id === movimiento[0].id || posicion.id === movimiento[1].id ){
                     casillero.innerHTML = '';
                     //Si hay dos casillas pintadas para comer entra al if
                     if (pintaDoble == true && columnaFinal > columnaInicial){
@@ -624,10 +616,6 @@ pintarJugador();
                         //Suma puntos por pieza comida
                         puntaje2 = puntaje2 + 1;
                         puntosJugador2.innerHTML = puntaje2;
-                        //despinta la posicion a donde se mueve
-                        console.log(matrizColumna);
-                        //El siguiente if sirve para que siga comiendo normal en la columna 6 cuando se pinta doble
-                        //busco la ubicacion de la casilla que está la ficha a comer
                         matrizFila++;
                         matrizColumna++;
                         ubicacion = document.querySelector('#fila' + matrizFila +'columna' + matrizColumna ).innerHTML = '';
@@ -686,19 +674,19 @@ pintarJugador();
                 matrizFila = ubicacion.substring(4, 5);
                 matrizColumna = ubicacion.substring(12);  
                 objetoTablero.list[matrizFila][matrizColumna] = 0;
-                e.currentTarget.innerHTML = piezaMovil; 
+                g.currentTarget.innerHTML = piezaMovil; 
                 piezaMovilSeleccionada = false;
-                posicion = e.currentTarget;
+                posicion = g.currentTarget;
                 turno = 1;
                 pintarJugador();
                 //Se remueve el efecto en las casillas porque ya movio la dama
                 removerSeleccion();  
                 } 
             } 
-            else if(piezaMovilSeleccionada && e.currentTarget.querySelector('img[alt="Pieza_Roja"]')){
-                posicion = e.currentTarget;            
+            else if(piezaMovilSeleccionada && g.currentTarget.querySelector('img[alt="Pieza_Roja"]')){
+                posicion = g.currentTarget;            
                 if(posicion == casillero){
-                    e.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.remove("pintado");     
+                    g.currentTarget.querySelector('img[alt="Pieza_Roja"]').classList.remove("pintado");     
                     piezaMovilSeleccionada = false;
                     removerSeleccion();          
                 }
