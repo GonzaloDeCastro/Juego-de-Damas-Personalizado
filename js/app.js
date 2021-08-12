@@ -103,7 +103,8 @@ pintarJugador();
         if (turno == 1){
             // Si el elemento no está seleccionado y hay un elemento hijo entonces
             if(!piezaMovilSeleccionada && g.currentTarget.querySelector('img[alt="Pieza_Blanca"]')) {
-                //currentTarget devuelve el elemento del DOM que está disparando el evento actual y la "e" es el argumento del elemento en si mismo, el objeto event que se recibe
+                /*Identifica el target (objetivo) actual del evento, ya que el evento atraviesa el DOM. 
+                Siempre hace referencia al elmento al cual el controlador del evento fue asociado, a diferencia de event.target, que identifica el elemento el el que se produjo el evento.*/
                 casillero = g.currentTarget; 
                 //Asigna a pieza movil el elemento selecccionado que luego se va a mover
                 piezaMovil = g.currentTarget.innerHTML;
